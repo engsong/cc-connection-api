@@ -4,6 +4,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { HealthController } from './health/health.controller';
 import { HealthModule } from './health/health.module';
 import { LoggerModule } from './common/logger.module';
+import { AcademicYearModule } from './academic_years/academic-year.module';
+import { BranchModule } from './branch/branch.module';
+import { YearLevelModule } from './year-level/year-level.module';
+import { AppointmentModule } from './appointment/appointment.module';
 
 @Module({
   imports: [
@@ -27,6 +31,10 @@ import { LoggerModule } from './common/logger.module';
     }),
     LoggerModule,
     HealthModule,
+    AcademicYearModule,
+    BranchModule,
+    YearLevelModule,
+    AppointmentModule,
   ],
   controllers: [HealthController],
 })
