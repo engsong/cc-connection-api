@@ -2,24 +2,60 @@ import {
   Entity,
   Column,
   PrimaryColumn,
+  ManyToOne,
+  JoinColumn,
   CreateDateColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { Branch } from '../branch/branch.entity';
+
+import { AcademicYear } from '../academic_years/academic.entity';
+import { Appointment } from '../appointment/appointment.entity';
 
 @Entity('appointment_persons')
 export class AppointmentPerson {
   @PrimaryColumn({ type: 'varchar', length: 24 })
   id: string;
 
+  // -----------------------------
+  // Foreign Key: branch_id → branches.id
+  // -----------------------------
   @Column({ type: 'varchar', length: 100 })
   branch_id: string;
 
+  @ManyToOne(() => Branch, (branch) => branch.appointmentPersons, {
+    onDelete: 'CASCADE',
+  })
+  @JoinColumn({ name: 'branch_id' })
+  branch: Branch;
+
+  // -----------------------------
+  // Foreign Key: appointment_id → appointments.id
+  // -----------------------------
   @Column({ type: 'varchar', length: 24 })
   appointment_id: string;
 
-  @Column({ type: 'varchar', length: 50 })
-  academic_year: string;
+  @ManyToOne(() => Appointment, (appt) => appt.appointmentPersons, {
+    onDelete: 'CASCADE',
+  })
+  @JoinColumn({ name: 'appointment_id' })
+  appointment: Appointment;
 
+  // -----------------------------
+  // Foreign Key: academic_year_id → academic_years.id
+  // -----------------------------
+  @Column({ type: 'varchar', length: 50 })
+  academic_year_id: string;
+
+  @ManyToOne(() => AcademicYear, (ay) => ay.appointmentPersons, {
+    onDelete: 'CASCADE',
+  })
+  @JoinColumn({ name: 'academic_year_id' })
+  academicYear: AcademicYear;
+
+  // -----------------------------
+  // Other columns
+  // -----------------------------
   @Column({ type: 'varchar', length: 100 })
   person_id: string;
 

@@ -8,6 +8,17 @@ import { AcademicYearModule } from './academic_years/academic-year.module';
 import { BranchModule } from './branch/branch.module';
 import { YearLevelModule } from './year-level/year-level.module';
 import { AppointmentModule } from './appointment/appointment.module';
+import { ParentModule } from './parents/parent.module';
+import { LaocationModule } from './location/laocation.module';
+import { StudentModule } from './students/student.module';
+import { RoleModule } from './role/role.module';
+import { SavingsModule } from './savings/saving.module';
+import { ParticipationListModule } from './participant-list/participation-list.module';
+import { ParticipationScoresModule } from './particippant-scores/participation-scores.module';
+import { AdminsModule } from './admin/admins.module';
+import { PermissionModulesModule } from './permission-module/permission-modules.module';
+import { PermissionsModule } from './permission/permissions.module';
+import { NotificationsModule } from './notifications/notifications.module';
 
 @Module({
   imports: [
@@ -35,6 +46,17 @@ import { AppointmentModule } from './appointment/appointment.module';
     BranchModule,
     YearLevelModule,
     AppointmentModule,
+    ParentModule,
+    LaocationModule,
+    StudentModule,
+    RoleModule,
+    SavingsModule,
+    ParticipationListModule,
+    ParticipationScoresModule,
+    AdminsModule,
+    PermissionModulesModule,
+    PermissionsModule,
+    NotificationsModule,
   ],
   controllers: [HealthController],
 })

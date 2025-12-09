@@ -1,4 +1,13 @@
-import { Entity, Column, PrimaryColumn } from 'typeorm';
+import { Entity, Column, PrimaryColumn, OneToMany } from 'typeorm';
+import { YearLevel } from '../year-level/year-level.entity';
+import { Appointment } from '../appointment/appointment.entity';
+import { AppointmentPerson } from '../appointment-person/appointment-person.entity';
+import { Class } from '../classes/class.entity';
+import { Parent } from '../parents/parent.entity';
+import { Role } from '../role/role.entity';
+import { Saving } from '../savings/savings.entity';
+import { ParticipationScore } from '../particippant-scores/participation_scores.entity';
+import { Admin } from '../admin/admin.entity';
 
 @Entity('branches')
 export class Branch {
@@ -34,4 +43,30 @@ export class Branch {
 
   @Column({ type: 'timestamp', nullable: true })
   updated_at: Date;
+
+  @OneToMany(() => YearLevel, (yl) => yl.branch)
+  yearLevels: YearLevel[];
+
+  @OneToMany(() => Appointment, (a) => a.branch)
+  appointments: Appointment[];
+  @OneToMany(() => AppointmentPerson, (ap) => ap.appointment)
+  appointmentPersons: AppointmentPerson[];
+
+  @OneToMany(() => Class, (c) => c.branch)
+  classes: Class[];
+
+  @OneToMany(() => Parent, (parent) => parent.branch)
+  parents: Parent[];
+
+  @OneToMany(() => Role, (role) => role.branch)
+  roles: Role[];
+
+  @OneToMany(() => Saving, (saving) => saving.branch)
+  savings: Saving[];
+
+  @OneToMany(() => ParticipationScore, (ps) => ps.branch)
+  participationScores: ParticipationScore[];
+
+  @OneToMany(() => Admin, (admin) => admin.branch)
+  admins: Admin[];
 }

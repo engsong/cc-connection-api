@@ -1,0 +1,103 @@
+import {
+  Controller,
+  Post,
+  Put,
+  Get,
+  Delete,
+  Param,
+  Body,
+  UploadedFile,
+  UseInterceptors,
+} from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { diskStorage } from 'multer';
+import type { Multer } from 'multer';
+import { extname } from 'path';
+import { StudentService } from './student.service';
+
+@Controller('students')
+export class StudentController {
+  constructor(private readonly service: StudentService) {}
+
+  // ================= CREATE =================
+  @Post()
+  @UseInterceptors(
+    FileInterceptor('profile_image', {
+      storage: diskStorage({
+        destination: './uploads/students',
+        filename: (req, file, cb) => {
+          const uniqueSuffix =
+            Date.now() + '-' + Math.round(Math.random() * 1e9);
+          cb(null, uniqueSuffix + extname(file.originalname));
+        },
+      }),
+    }),
+  )
+  async createStudent(@UploadedFile() file: Multer.File, @Body() body: any) {
+    const data: any = {
+      ...body,
+      emergency_contacts: body.emergency_contacts
+        ? JSON.parse(body.emergency_contacts)
+        : [],
+      parents: body.parent_id ? JSON.parse(body.parent_id) : [],
+    };
+
+    if (file) {
+      data.profile_image_path = file.path.replace(/\\/g, '/');
+    }
+
+    return this.service.createStudent(data);
+  }
+
+  // ================= UPDATE =================
+  @Put(':id')
+  @UseInterceptors(
+    FileInterceptor('profile_image', {
+      storage: diskStorage({
+        destination: './uploads/students',
+        filename: (req, file, cb) => {
+          const uniqueSuffix =
+            Date.now() + '-' + Math.round(Math.random() * 1e9);
+          cb(null, uniqueSuffix + extname(file.originalname));
+        },
+      }),
+    }),
+  )
+  async updateStudent(
+    @Param('id') id: string,
+    @UploadedFile() file: Multer.File,
+    @Body() body: any,
+  ) {
+    const data: any = {
+      ...body,
+      emergency_contacts: body.emergency_contacts
+        ? JSON.parse(body.emergency_contacts)
+        : undefined,
+      parents: body.parent_id ? JSON.parse(body.parent_id) : undefined,
+    };
+
+    if (file) {
+      data.profile_image_path = file.path.replace(/\\/g, '/');
+    }
+
+    return this.service.updateStudent(id, data);
+  }
+
+  // ================= GET ALL =================
+  @Get()
+  getAllStudents() {
+    return this.service.getAllStudents();
+  }
+
+  // ================= GET BY ID =================
+  @Get(':id')
+  getStudentById(@Param('id') id: string) {
+    return this.service.getStudentById(id);
+  }
+
+  // ================= DELETE =================
+  @Delete(':id')
+  deleteStudent(@Param('id') id: string) {
+    return this.service.deleteStudent(id);
+  }
+}

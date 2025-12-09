@@ -21,7 +21,7 @@ export class CreateAppointmentPersonDto {
   @IsString()
   @IsNotEmpty()
   @MaxLength(50)
-  academic_year: string;
+  academic_year_id: string;
 
   @IsString()
   @IsNotEmpty()

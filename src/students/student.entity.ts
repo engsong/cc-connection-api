@@ -1,0 +1,103 @@
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+  ManyToMany,
+  JoinTable,
+  CreateDateColumn,
+  UpdateDateColumn,
+  OneToMany,
+} from 'typeorm';
+import { Branch } from '../branch/branch.entity';
+import { AcademicYear } from '../academic_years/academic.entity';
+import { Province } from '../location/province.entity';
+import { District } from '../location/district.entity';
+import { Parent } from '../parents/parent.entity';
+import { Saving } from '../savings/savings.entity';
+import { ParticipationScore } from '../particippant-scores/participation_scores.entity';
+
+@Entity('students')
+export class Student {
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
+
+  @ManyToOne(() => Branch, { nullable: false })
+  branch: Branch;
+
+  @ManyToOne(() => AcademicYear, { nullable: false })
+  academicYear: AcademicYear;
+
+  @Column({ type: 'varchar', length: 100 })
+  student_id: string;
+
+  @ManyToOne(() => Province, { nullable: false })
+  province: Province;
+
+  @ManyToOne(() => District, { nullable: false })
+  district: District;
+
+  @Column({ type: 'varchar', length: 50 })
+  village_id: string;
+
+  @Column({ type: 'varchar', length: 255 })
+  profile_image_path: string;
+
+  @Column({ type: 'varchar', length: 255 })
+  first_name: string;
+
+  @Column({ type: 'varchar', length: 255 })
+  last_name: string;
+
+  @Column({ type: 'date' })
+  dob: Date;
+
+  @Column({ type: 'varchar', length: 50 })
+  gender: string;
+
+  @Column({ type: 'varchar', length: 100 })
+  nationality: string;
+
+  @Column({ type: 'varchar', length: 100 })
+  ethnicity: string;
+
+  @Column({ type: 'varchar', length: 100 })
+  religion: string;
+
+  @Column({ type: 'varchar', length: 255 })
+  live_with: string;
+
+  @Column({ type: 'text' })
+  address: string;
+
+  @Column({ type: 'jsonb' })
+  emergency_contacts: any;
+
+  @Column({ type: 'numeric', precision: 18, scale: 2, default: 0 })
+  saving_wallet: number;
+
+  @Column({ default: true })
+  is_active: boolean;
+
+  @Column({ default: false })
+  is_deleted: boolean;
+
+  @ManyToMany(() => Parent, { cascade: true })
+  @JoinTable({
+    name: 'student_parents',
+    joinColumn: { name: 'student_id', referencedColumnName: 'id' },
+    inverseJoinColumn: { name: 'parent_id', referencedColumnName: 'id' },
+  })
+  parents: Parent[];
+
+  @CreateDateColumn({ type: 'timestamptz' })
+  created_at: Date;
+
+  @UpdateDateColumn({ type: 'timestamptz' })
+  updated_at: Date;
+
+  @OneToMany(() => Saving, (saving) => saving.branch)
+  savings: Saving[];
+  @OneToMany(() => ParticipationScore, (ps) => ps.branch)
+  participationScores: ParticipationScore[];
+}

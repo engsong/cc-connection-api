@@ -1,16 +1,47 @@
-import { Entity, Column, PrimaryColumn } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryColumn,
+  ManyToOne,
+  JoinColumn,
+  OneToMany,
+} from 'typeorm';
+import { Branch } from '../branch/branch.entity';
+import { AcademicYear } from '../academic_years/academic.entity';
+import { AppointmentPerson } from '../appointment-person/appointment-person.entity';
 
 @Entity('appointments')
 export class Appointment {
   @PrimaryColumn()
   id: string;
 
+  // -----------------------------
+  // Foreign Key: branch_id → branches.id
+  // -----------------------------
   @Column()
   branch_id: string;
 
-  @Column()
-  academic_year: string;
+  @ManyToOne(() => Branch, (branch) => branch.appointments, {
+    onDelete: 'CASCADE',
+  })
+  @JoinColumn({ name: 'branch_id' })
+  branch: Branch;
 
+  // -----------------------------
+  // Foreign Key: academic_year_id → academic_years.id
+  // -----------------------------
+  @Column()
+  academic_year_id: string;
+
+  @ManyToOne(() => AcademicYear, (ay) => ay.appointments, {
+    onDelete: 'CASCADE',
+  })
+  @JoinColumn({ name: 'academic_year_id' })
+  academicYear: AcademicYear;
+
+  // -----------------------------
+  // Other columns
+  // -----------------------------
   @Column()
   title: string;
 
@@ -55,4 +86,7 @@ export class Appointment {
 
   @Column({ type: 'timestamp', nullable: true })
   updated_at: Date;
+
+  @OneToMany(() => AppointmentPerson, (ap) => ap.appointment)
+  appointmentPersons: AppointmentPerson[];
 }
