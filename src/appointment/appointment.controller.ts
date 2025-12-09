@@ -4,8 +4,8 @@ import {
   Post,
   Put,
   Delete,
-  Param,
   Body,
+  Param,
 } from '@nestjs/common';
 import { AppointmentService } from './appointment.service';
 import { CreateAppointmentDto } from './create-appointment.dto';
@@ -28,6 +28,11 @@ export class AppointmentController {
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.service.findOne(id);
+  }
+
+  @Get('branch/:branch_id')
+  findByBranch(@Param('branch_id') branch_id: string) {
+    return this.service.findByBranch(branch_id);
   }
 
   @Put(':id')

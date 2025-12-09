@@ -7,7 +7,7 @@ export class UpdateAppointmentDto {
 
   @IsString()
   @IsOptional()
-  academic_year?: string;
+  academic_year_id?: string;
 
   @IsString()
   @IsOptional()

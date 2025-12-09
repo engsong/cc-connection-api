@@ -7,7 +7,7 @@ export class CreateAppointmentDto {
 
   @IsString()
   @IsNotEmpty()
-  academic_year: string;
+  academic_year_id: string;
 
   @IsString()
   @IsNotEmpty()

@@ -1,15 +1,20 @@
-import { IsNotEmpty, IsString } from 'class-validator';
+import { IsString, IsBoolean, IsOptional } from 'class-validator';
 
 export class CreateYearLevelDto {
   @IsString()
-  @IsNotEmpty()
   branch_id: string;
 
   @IsString()
-  @IsNotEmpty()
-  academic_year: string;
+  academic_year_id: string;
 
   @IsString()
-  @IsNotEmpty()
   name: string;
+
+  @IsOptional()
+  @IsBoolean()
+  is_active?: boolean;
+
+  @IsOptional()
+  @IsBoolean()
+  is_deleted?: boolean;
 }
