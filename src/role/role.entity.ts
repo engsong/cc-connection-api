@@ -6,6 +6,7 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   OneToMany,
+  JoinColumn,
 } from 'typeorm';
 import { Branch } from '../branch/branch.entity';
 import { Admin } from '../admin/admin.entity';
@@ -18,16 +19,21 @@ export class Role {
   @Column()
   name: string;
 
-  @Column({ type: 'uuid' })
-  added_by: string;
+  @ManyToOne(() => Admin, { nullable: true }) // allow nulls temporarily
+  @JoinColumn({ name: 'added_by_id' })
+  added_by: Admin;
+
+  @Column({ type: 'uuid', nullable: true }) // allow null
+  added_by_id: string;
 
   @Column({ default: false })
   is_deleted: boolean;
 
-  @Column({ type: 'uuid' })
+  @Column({ type: 'uuid', nullable: true }) // allow null for existing rows
   branch_id: string;
 
-  @ManyToOne(() => Branch, (branch) => branch.roles)
+  @ManyToOne(() => Branch, (branch) => branch.roles, { nullable: true })
+  @JoinColumn({ name: 'branch_id' })
   branch: Branch;
 
   @CreateDateColumn()

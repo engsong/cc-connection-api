@@ -1,8 +1,8 @@
 import {
   Entity,
   PrimaryGeneratedColumn,
-  Column,
   ManyToOne,
+  Column,
   CreateDateColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -10,6 +10,7 @@ import { Student } from '../students/student.entity';
 import { Branch } from '../branch/branch.entity';
 import { AcademicYear } from '../academic_years/academic.entity';
 import { ParticipationList } from '../participant-list/participation-list.entity';
+import { Admin } from '../admin/admin.entity';
 
 @Entity('participation_scores')
 export class ParticipationScore {
@@ -21,9 +22,7 @@ export class ParticipationScore {
   })
   student: Student;
 
-  @ManyToOne(() => Branch, (branch) => branch.participationScores, {
-    nullable: false,
-  })
+  @ManyToOne(() => Branch, { nullable: false })
   branch: Branch;
 
   @ManyToOne(() => AcademicYear, (year) => year.participationScores, {
@@ -34,8 +33,9 @@ export class ParticipationScore {
   @Column({ type: 'date', nullable: true })
   date: Date | null;
 
-  @Column({ type: 'uuid', nullable: true })
-  added_by: string | null;
+  // 🔥 Final relation to Admin entity
+  @ManyToOne(() => Admin, { nullable: false })
+  added_by: Admin;
 
   @ManyToOne(() => ParticipationList, (list) => list.participationScores, {
     nullable: false,

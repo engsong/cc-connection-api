@@ -3,7 +3,7 @@ export class UpdateParticipationScoreDto {
   branch_id?: string;
   academic_year_id?: string;
   participation_list_id?: string;
-  date?: Date;
+  added_by_admin_id?: string;
   score?: number;
-  added_by?: string;
+  date?: Date;
 }
