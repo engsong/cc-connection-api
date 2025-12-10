@@ -1,12 +1,14 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { ParticipationScore } from './participation_scores.entity';
-import { ParticipationScoresService } from './participation-scores.service';
-import { ParticipationScoresController } from './participation-scores.controller';
+import { ParticipationScoreService } from './participation-scores.service';
+import { ParticipationScoreController } from './participation-scores.controller';
+
 import { Student } from '../students/student.entity';
 import { Branch } from '../branch/branch.entity';
 import { AcademicYear } from '../academic_years/academic.entity';
 import { ParticipationList } from '../participant-list/participation-list.entity';
+import { Admin } from '../admin/admin.entity';
+import { ParticipationScore } from './participation_scores.entity';
 
 @Module({
   imports: [
@@ -16,9 +18,10 @@ import { ParticipationList } from '../participant-list/participation-list.entity
       Branch,
       AcademicYear,
       ParticipationList,
+      Admin,
     ]),
   ],
-  providers: [ParticipationScoresService],
-  controllers: [ParticipationScoresController],
+  controllers: [ParticipationScoreController],
+  providers: [ParticipationScoreService],
 })
 export class ParticipationScoresModule {}

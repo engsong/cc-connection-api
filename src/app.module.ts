@@ -11,7 +11,6 @@ import { AppointmentModule } from './appointment/appointment.module';
 import { ParentModule } from './parents/parent.module';
 import { LaocationModule } from './location/laocation.module';
 import { StudentModule } from './students/student.module';
-import { RoleModule } from './role/role.module';
 import { SavingsModule } from './savings/saving.module';
 import { ParticipationListModule } from './participant-list/participation-list.module';
 import { ParticipationScoresModule } from './particippant-scores/participation-scores.module';
@@ -19,6 +18,12 @@ import { AdminsModule } from './admin/admins.module';
 import { PermissionModulesModule } from './permission-module/permission-modules.module';
 import { PermissionsModule } from './permission/permissions.module';
 import { NotificationsModule } from './notifications/notifications.module';
+import { CommentsModule } from './comments/comments.module';
+import { RolesModule } from './role/role.module';
+import { FileModule } from './file/file.module';
+import { EventModule } from './event/event.module';
+import { TaskModule } from './task/task.module';
+import { EventActivityModule } from './eventactivity/eventActivity.module';
 
 @Module({
   imports: [
@@ -49,7 +54,7 @@ import { NotificationsModule } from './notifications/notifications.module';
     ParentModule,
     LaocationModule,
     StudentModule,
-    RoleModule,
+    RolesModule,
     SavingsModule,
     ParticipationListModule,
     ParticipationScoresModule,
@@ -57,6 +62,11 @@ import { NotificationsModule } from './notifications/notifications.module';
     PermissionModulesModule,
     PermissionsModule,
     NotificationsModule,
+    CommentsModule,
+    FileModule,
+    EventModule,
+    TaskModule,
+    EventActivityModule,
   ],
   controllers: [HealthController],
 })
