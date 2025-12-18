@@ -1,0 +1,22 @@
+{
+  "student_id": "TEST001",
+  "first_name": "Bounmy",
+  "last_name": "Phomvihane",
+  "dob": "2010-01-15",
+  "gender": "Male",
+  "nationality": "Lao",
+  "ethnicity": "Lao Loum",
+  "religion": "Buddhism",
+  "live_with": "Parents",
+  "address": "Ban Phonhong, Vientiane, Laos",
+  "village_id": "VL0001",
+  "profile_image_path": "uploads/students/default.jpg",
+  "emergency_contacts": [
+    {
+      "name": "Bounmy's Parent",
+      "relationship": "Parent",
+      "phone": "02055000000"
+    }
+  ],
+  "saving_wallet": 0
+}

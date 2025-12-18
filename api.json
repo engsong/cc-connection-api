@@ -1,0 +1,2279 @@
+{
+    "openapi": "3.0.0",
+    "paths": {
+        "/health": {
+            "get": {
+                "operationId": "HealthController_check",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Health"
+                ]
+            }
+        },
+        "/academic-year": {
+            "post": {
+                "operationId": "AcademicYearController_create",
+                "parameters": [],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateAcademicYearDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "AcademicYear"
+                ]
+            },
+            "get": {
+                "operationId": "AcademicYearController_findAll",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "AcademicYear"
+                ]
+            }
+        },
+        "/academic-year/{id}": {
+            "get": {
+                "operationId": "AcademicYearController_findOne",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "AcademicYear"
+                ]
+            },
+            "put": {
+                "operationId": "AcademicYearController_update",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateAcademicYearDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "AcademicYear"
+                ]
+            }
+        },
+        "/branches": {
+            "post": {
+                "operationId": "BranchController_create",
+                "parameters": [],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateBranchDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Branch"
+                ]
+            },
+            "get": {
+                "operationId": "BranchController_findAll",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Branch"
+                ]
+            }
+        },
+        "/branches/{id}": {
+            "get": {
+                "operationId": "BranchController_findOne",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Branch"
+                ]
+            },
+            "put": {
+                "operationId": "BranchController_update",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateBranchDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Branch"
+                ]
+            },
+            "delete": {
+                "operationId": "BranchController_softDelete",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Branch"
+                ]
+            }
+        },
+        "/year-levels": {
+            "post": {
+                "operationId": "YearLevelController_create",
+                "parameters": [],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateYearLevelDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "YearLevel"
+                ]
+            },
+            "get": {
+                "operationId": "YearLevelController_findAll",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "YearLevel"
+                ]
+            }
+        },
+        "/year-levels/{id}": {
+            "get": {
+                "operationId": "YearLevelController_findOne",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "YearLevel"
+                ]
+            },
+            "put": {
+                "operationId": "YearLevelController_update",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateYearLevelDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "YearLevel"
+                ]
+            },
+            "delete": {
+                "operationId": "YearLevelController_delete",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "YearLevel"
+                ]
+            }
+        },
+        "/year-levels/branch/{branch_id}": {
+            "get": {
+                "operationId": "YearLevelController_findByBranch",
+                "parameters": [
+                    {
+                        "name": "branch_id",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "YearLevel"
+                ]
+            }
+        },
+        "/appointments": {
+            "post": {
+                "operationId": "AppointmentController_create",
+                "parameters": [],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateAppointmentDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Appointment"
+                ]
+            },
+            "get": {
+                "operationId": "AppointmentController_findAll",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Appointment"
+                ]
+            }
+        },
+        "/appointments/{id}": {
+            "get": {
+                "operationId": "AppointmentController_findOne",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Appointment"
+                ]
+            },
+            "put": {
+                "operationId": "AppointmentController_update",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateAppointmentDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Appointment"
+                ]
+            },
+            "delete": {
+                "operationId": "AppointmentController_delete",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Appointment"
+                ]
+            }
+        },
+        "/appointments/branch/{branch_id}": {
+            "get": {
+                "operationId": "AppointmentController_findByBranch",
+                "parameters": [
+                    {
+                        "name": "branch_id",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Appointment"
+                ]
+            }
+        },
+        "/parents": {
+            "post": {
+                "operationId": "ParentController_create",
+                "parameters": [],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateParentDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Parent"
+                ]
+            },
+            "get": {
+                "operationId": "ParentController_findAll",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Parent"
+                ]
+            }
+        },
+        "/parents/{id}": {
+            "get": {
+                "operationId": "ParentController_findOne",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Parent"
+                ]
+            },
+            "put": {
+                "operationId": "ParentController_update",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateParentDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Parent"
+                ]
+            },
+            "delete": {
+                "operationId": "ParentController_delete",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Parent"
+                ]
+            }
+        },
+        "/parents/branch/{branch_id}": {
+            "get": {
+                "operationId": "ParentController_findByBranch",
+                "parameters": [
+                    {
+                        "name": "branch_id",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Parent"
+                ]
+            }
+        },
+        "/locations/province": {
+            "post": {
+                "operationId": "LaocationController_createProvince",
+                "parameters": [],
+                "responses": {
+                    "201": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Laocation"
+                ]
+            },
+            "get": {
+                "operationId": "LaocationController_getAllProvinces",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Laocation"
+                ]
+            }
+        },
+        "/locations/province/{id}": {
+            "get": {
+                "operationId": "LaocationController_getProvinceById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Laocation"
+                ]
+            },
+            "put": {
+                "operationId": "LaocationController_updateProvince",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Laocation"
+                ]
+            },
+            "delete": {
+                "operationId": "LaocationController_deleteProvince",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Laocation"
+                ]
+            }
+        },
+        "/locations/district": {
+            "post": {
+                "operationId": "LaocationController_createDistrict",
+                "parameters": [],
+                "responses": {
+                    "201": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Laocation"
+                ]
+            },
+            "get": {
+                "operationId": "LaocationController_getAllDistricts",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Laocation"
+                ]
+            }
+        },
+        "/locations/district/{id}": {
+            "get": {
+                "operationId": "LaocationController_getDistrictById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Laocation"
+                ]
+            },
+            "put": {
+                "operationId": "LaocationController_updateDistrict",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Laocation"
+                ]
+            },
+            "delete": {
+                "operationId": "LaocationController_deleteDistrict",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Laocation"
+                ]
+            }
+        },
+        "/students": {
+            "post": {
+                "operationId": "StudentController_createStudent",
+                "parameters": [],
+                "responses": {
+                    "201": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Student"
+                ]
+            },
+            "get": {
+                "operationId": "StudentController_getAllStudents",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Student"
+                ]
+            }
+        },
+        "/students/{id}": {
+            "put": {
+                "operationId": "StudentController_updateStudent",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Student"
+                ]
+            },
+            "get": {
+                "operationId": "StudentController_getStudentById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Student"
+                ]
+            },
+            "delete": {
+                "operationId": "StudentController_deleteStudent",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Student"
+                ]
+            }
+        },
+        "/roles": {
+            "post": {
+                "operationId": "RolesController_create",
+                "parameters": [],
+                "responses": {
+                    "201": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Roles"
+                ]
+            },
+            "get": {
+                "operationId": "RolesController_findAll",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Roles"
+                ]
+            }
+        },
+        "/roles/{id}": {
+            "get": {
+                "operationId": "RolesController_findOne",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Roles"
+                ]
+            },
+            "put": {
+                "operationId": "RolesController_update",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Roles"
+                ]
+            },
+            "delete": {
+                "operationId": "RolesController_delete",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Roles"
+                ]
+            }
+        },
+        "/savings": {
+            "post": {
+                "operationId": "SavingsController_create",
+                "parameters": [],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateSavingDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Savings"
+                ]
+            },
+            "get": {
+                "operationId": "SavingsController_findAll",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Savings"
+                ]
+            }
+        },
+        "/savings/{id}": {
+            "get": {
+                "operationId": "SavingsController_findOne",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Savings"
+                ]
+            },
+            "put": {
+                "operationId": "SavingsController_update",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateSavingDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Savings"
+                ]
+            },
+            "delete": {
+                "operationId": "SavingsController_delete",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Savings"
+                ]
+            }
+        },
+        "/savings/student/{studentId}": {
+            "get": {
+                "operationId": "SavingsController_getByStudent",
+                "parameters": [
+                    {
+                        "name": "studentId",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Savings"
+                ]
+            }
+        },
+        "/participation-list": {
+            "post": {
+                "operationId": "ParticipationListController_create",
+                "parameters": [],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateParticipationListDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "ParticipationList"
+                ]
+            },
+            "get": {
+                "operationId": "ParticipationListController_findAll",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "ParticipationList"
+                ]
+            }
+        },
+        "/participation-list/{id}": {
+            "get": {
+                "operationId": "ParticipationListController_findOne",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "ParticipationList"
+                ]
+            },
+            "put": {
+                "operationId": "ParticipationListController_update",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateParticipationListDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "ParticipationList"
+                ]
+            },
+            "delete": {
+                "operationId": "ParticipationListController_remove",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "ParticipationList"
+                ]
+            }
+        },
+        "/participation-scores": {
+            "post": {
+                "operationId": "ParticipationScoreController_create",
+                "parameters": [],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateParticipationScoreDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "ParticipationScore"
+                ]
+            },
+            "get": {
+                "operationId": "ParticipationScoreController_findAll",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "ParticipationScore"
+                ]
+            }
+        },
+        "/participation-scores/{id}": {
+            "get": {
+                "operationId": "ParticipationScoreController_findOne",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "ParticipationScore"
+                ]
+            },
+            "put": {
+                "operationId": "ParticipationScoreController_update",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateParticipationScoreDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "ParticipationScore"
+                ]
+            },
+            "delete": {
+                "operationId": "ParticipationScoreController_delete",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "ParticipationScore"
+                ]
+            }
+        },
+        "/admins": {
+            "post": {
+                "operationId": "AdminsController_create",
+                "parameters": [],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateAdminDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Admins"
+                ]
+            },
+            "get": {
+                "operationId": "AdminsController_findAll",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Admins"
+                ]
+            }
+        },
+        "/admins/{id}": {
+            "get": {
+                "operationId": "AdminsController_findOne",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Admins"
+                ]
+            },
+            "put": {
+                "operationId": "AdminsController_update",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateAdminDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Admins"
+                ]
+            },
+            "delete": {
+                "operationId": "AdminsController_delete",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Admins"
+                ]
+            }
+        },
+        "/admins/branch/{branchId}": {
+            "get": {
+                "operationId": "AdminsController_findByBranch",
+                "parameters": [
+                    {
+                        "name": "branchId",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Admins"
+                ]
+            }
+        },
+        "/admins/by-branch": {
+            "post": {
+                "operationId": "AdminsController_getByBranch",
+                "parameters": [],
+                "responses": {
+                    "201": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Admins"
+                ]
+            }
+        },
+        "/permission-modules": {
+            "post": {
+                "operationId": "PermissionModulesController_create",
+                "parameters": [],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreatePermissionModuleDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "PermissionModules"
+                ]
+            },
+            "get": {
+                "operationId": "PermissionModulesController_findAll",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "PermissionModules"
+                ]
+            }
+        },
+        "/permission-modules/{id}": {
+            "get": {
+                "operationId": "PermissionModulesController_findOne",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "PermissionModules"
+                ]
+            },
+            "put": {
+                "operationId": "PermissionModulesController_update",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "PermissionModules"
+                ]
+            },
+            "delete": {
+                "operationId": "PermissionModulesController_delete",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "PermissionModules"
+                ]
+            }
+        },
+        "/permissions": {
+            "post": {
+                "operationId": "PermissionsController_create",
+                "parameters": [],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreatePermissionDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Permissions"
+                ]
+            },
+            "get": {
+                "operationId": "PermissionsController_findAll",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Permissions"
+                ]
+            }
+        },
+        "/permissions/{id}": {
+            "get": {
+                "operationId": "PermissionsController_findById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Permissions"
+                ]
+            },
+            "put": {
+                "operationId": "PermissionsController_update",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdatePermissionDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Permissions"
+                ]
+            },
+            "delete": {
+                "operationId": "PermissionsController_delete",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Permissions"
+                ]
+            }
+        },
+        "/notifications": {
+            "post": {
+                "operationId": "NotificationsController_create",
+                "parameters": [],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateNotificationDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Notifications"
+                ]
+            },
+            "get": {
+                "operationId": "NotificationsController_findAll",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Notifications"
+                ]
+            }
+        },
+        "/notifications/branch": {
+            "post": {
+                "operationId": "NotificationsController_findByBranch",
+                "parameters": [],
+                "responses": {
+                    "201": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Notifications"
+                ]
+            }
+        },
+        "/notifications/{id}": {
+            "get": {
+                "operationId": "NotificationsController_findOne",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Notifications"
+                ]
+            },
+            "put": {
+                "operationId": "NotificationsController_update",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateNotificationDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Notifications"
+                ]
+            },
+            "delete": {
+                "operationId": "NotificationsController_remove",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Notifications"
+                ]
+            }
+        },
+        "/comments": {
+            "post": {
+                "operationId": "CommentsController_create",
+                "parameters": [],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateCommentDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Comments"
+                ]
+            },
+            "get": {
+                "operationId": "CommentsController_findAll",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Comments"
+                ]
+            }
+        },
+        "/comments/module/{moduleId}": {
+            "get": {
+                "operationId": "CommentsController_findByModule",
+                "parameters": [
+                    {
+                        "name": "moduleId",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Comments"
+                ]
+            }
+        },
+        "/comments/{id}": {
+            "delete": {
+                "operationId": "CommentsController_remove",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Comments"
+                ]
+            }
+        },
+        "/files": {
+            "post": {
+                "operationId": "FileController_create",
+                "parameters": [],
+                "responses": {
+                    "201": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "File"
+                ]
+            },
+            "get": {
+                "operationId": "FileController_findAll",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "File"
+                ]
+            }
+        },
+        "/files/{id}": {
+            "get": {
+                "operationId": "FileController_findOne",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "File"
+                ]
+            }
+        },
+        "/events": {
+            "post": {
+                "operationId": "EventController_create",
+                "parameters": [],
+                "responses": {
+                    "201": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Event"
+                ]
+            },
+            "get": {
+                "operationId": "EventController_findAll",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Event"
+                ]
+            }
+        },
+        "/events/{id}": {
+            "get": {
+                "operationId": "EventController_findOne",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Event"
+                ]
+            },
+            "put": {
+                "operationId": "EventController_update",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Event"
+                ]
+            },
+            "delete": {
+                "operationId": "EventController_delete",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Event"
+                ]
+            }
+        },
+        "/tasks": {
+            "post": {
+                "operationId": "TaskController_create",
+                "parameters": [
+                    {
+                        "name": "files",
+                        "required": true,
+                        "in": "query",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Task"
+                ]
+            },
+            "get": {
+                "operationId": "TaskController_findAll",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Task"
+                ]
+            }
+        },
+        "/tasks/{id}": {
+            "get": {
+                "operationId": "TaskController_findOne",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "Task"
+                ]
+            }
+        },
+        "/event-activities": {
+            "post": {
+                "operationId": "EventActivityController_create",
+                "parameters": [
+                    {
+                        "name": "files",
+                        "required": true,
+                        "in": "query",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "EventActivity"
+                ]
+            },
+            "get": {
+                "operationId": "EventActivityController_findAll",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "EventActivity"
+                ]
+            }
+        },
+        "/event-activities/{id}": {
+            "get": {
+                "operationId": "EventActivityController_findOne",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "EventActivity"
+                ]
+            }
+        }
+    },
+    "info": {
+        "title": "CC Connection API",
+        "description": "CC Connection API Documentation",
+        "version": "1.0",
+        "contact": {}
+    },
+    "tags": [],
+    "servers": [],
+    "components": {
+        "schemas": {
+            "CreateAcademicYearDto": {
+                "type": "object",
+                "properties": {}
+            },
+            "UpdateAcademicYearDto": {
+                "type": "object",
+                "properties": {}
+            },
+            "CreateBranchDto": {
+                "type": "object",
+                "properties": {}
+            },
+            "UpdateBranchDto": {
+                "type": "object",
+                "properties": {}
+            },
+            "CreateYearLevelDto": {
+                "type": "object",
+                "properties": {}
+            },
+            "UpdateYearLevelDto": {
+                "type": "object",
+                "properties": {}
+            },
+            "CreateAppointmentDto": {
+                "type": "object",
+                "properties": {}
+            },
+            "UpdateAppointmentDto": {
+                "type": "object",
+                "properties": {}
+            },
+            "CreateParentDto": {
+                "type": "object",
+                "properties": {}
+            },
+            "UpdateParentDto": {
+                "type": "object",
+                "properties": {}
+            },
+            "CreateSavingDto": {
+                "type": "object",
+                "properties": {}
+            },
+            "UpdateSavingDto": {
+                "type": "object",
+                "properties": {}
+            },
+            "CreateParticipationListDto": {
+                "type": "object",
+                "properties": {}
+            },
+            "UpdateParticipationListDto": {
+                "type": "object",
+                "properties": {}
+            },
+            "CreateParticipationScoreDto": {
+                "type": "object",
+                "properties": {}
+            },
+            "UpdateParticipationScoreDto": {
+                "type": "object",
+                "properties": {}
+            },
+            "CreateAdminDto": {
+                "type": "object",
+                "properties": {}
+            },
+            "UpdateAdminDto": {
+                "type": "object",
+                "properties": {}
+            },
+            "CreatePermissionModuleDto": {
+                "type": "object",
+                "properties": {}
+            },
+            "CreatePermissionDto": {
+                "type": "object",
+                "properties": {}
+            },
+            "UpdatePermissionDto": {
+                "type": "object",
+                "properties": {}
+            },
+            "CreateNotificationDto": {
+                "type": "object",
+                "properties": {}
+            },
+            "UpdateNotificationDto": {
+                "type": "object",
+                "properties": {}
+            },
+            "CreateCommentDto": {
+                "type": "object",
+                "properties": {}
+            }
+        }
+    }
+}

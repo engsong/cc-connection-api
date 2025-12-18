@@ -51,29 +51,33 @@ export class StudentService {
     student.profile_image_path = data.profile_image_path;
 
     // Relations with null check
-    const branch = await this.branchRepo.findOne({
-      where: { id: data.branchId },
-    });
-    if (!branch) throw new Error('Branch not found');
-    student.branch = branch;
+    if (data.branchId) {
+      const branch = await this.branchRepo.findOne({
+        where: { id: data.branchId },
+      });
+      if (branch) student.branch = branch;
+    }
 
-    const academicYear = await this.academicYearRepo.findOne({
-      where: { id: data.academicYearId },
-    });
-    if (!academicYear) throw new Error('AcademicYear not found');
-    student.academicYear = academicYear;
+    if (data.academicYearId) {
+      const academicYear = await this.academicYearRepo.findOne({
+        where: { id: data.academicYearId },
+      });
+      if (academicYear) student.academicYear = academicYear;
+    }
 
-    const province = await this.provinceRepo.findOne({
-      where: { id: data.provinceId },
-    });
-    if (!province) throw new Error('Province not found');
-    student.province = province;
+    if (data.provinceId) {
+      const province = await this.provinceRepo.findOne({
+        where: { id: data.provinceId },
+      });
+      if (province) student.province = province;
+    }
 
-    const district = await this.districtRepo.findOne({
-      where: { id: data.districtId },
-    });
-    if (!district) throw new Error('District not found');
-    student.district = district;
+    if (data.districtId) {
+      const district = await this.districtRepo.findOne({
+        where: { id: data.districtId },
+      });
+      if (district) student.district = district;
+    }
 
     // Parents
     if (data.parents?.length) {
