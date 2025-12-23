@@ -82,6 +82,35 @@ export class Student {
   @Column({ default: false })
   is_deleted: boolean;
 
+  // Health information
+  @Column({ type: 'varchar', length: 10, nullable: true })
+  blood_type: string;
+
+  @Column({ type: 'numeric', precision: 5, scale: 2, nullable: true })
+  height: number;
+
+  @Column({ type: 'numeric', precision: 5, scale: 2, nullable: true })
+  weight: number;
+
+  @Column({ type: 'varchar', length: 50, nullable: true })
+  birth_status: string;
+
+  @Column({ type: 'text', nullable: true })
+  allergies: string;
+
+  @Column({ type: 'text', nullable: true })
+  medical_notes: string;
+
+  // Location information
+  @Column({ type: 'numeric', precision: 10, scale: 7, nullable: true })
+  latitude: number;
+
+  @Column({ type: 'numeric', precision: 10, scale: 7, nullable: true })
+  longitude: number;
+
+  @Column({ type: 'text', nullable: true })
+  location_notes: string;
+
   @ManyToMany(() => Parent, { cascade: true })
   @JoinTable({
     name: 'student_parents',

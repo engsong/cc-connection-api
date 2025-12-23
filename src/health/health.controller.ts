@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Head } from '@nestjs/common';
 import { DataSource } from 'typeorm';
 import { LoggerService } from '../common/logger.service'; // adjust path
 
@@ -25,5 +25,10 @@ export class HealthController {
       timestamp: new Date().toISOString(),
       uptime: process.uptime(), // seconds
     };
+  }
+
+  @Head()
+  async checkHead() {
+    return this.check();
   }
 }

@@ -4,6 +4,7 @@ import { ConfigService } from '@nestjs/config';
 import { LoggerService } from './common/logger.service';
 import { LoggingInterceptor } from './common/logging.interceptor';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
+import { HealthController } from './health/health.controller';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
@@ -39,6 +40,18 @@ async function bootstrap() {
   // Set global API prefix from .env (e.g., /api or UUID)
   const prefix = config.get<string>('API_PREFIX') ?? '/api';
   app.setGlobalPrefix(prefix);
+
+  // Expose health checks without the prefix for load balancers and uptime probes
+  const healthController = app.get(HealthController);
+  const httpAdapter = app.getHttpAdapter();
+  (httpAdapter as any).get('/health', async (_req, res) => {
+    const result = await healthController.check();
+    res.json(result);
+  });
+  (httpAdapter as any).head('/health', async (_req, res) => {
+    await healthController.check();
+    res.status(200).end();
+  });
 
   // Optional: log all requests/responses
   app.useGlobalInterceptors(new LoggingInterceptor(logger));
