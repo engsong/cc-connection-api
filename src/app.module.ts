@@ -24,6 +24,7 @@ import { FileModule } from './file/file.module';
 import { EventModule } from './event/event.module';
 import { TaskModule } from './task/task.module';
 import { EventActivityModule } from './eventactivity/eventActivity.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -67,6 +68,7 @@ import { EventActivityModule } from './eventactivity/eventActivity.module';
     EventModule,
     TaskModule,
     EventActivityModule,
+    AuthModule,
   ],
   controllers: [HealthController],
 })

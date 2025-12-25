@@ -6,6 +6,7 @@ import { Branch } from '../branch/branch.entity';
 import { randomUUID } from 'crypto';
 import { CreateParentDto } from './dto/CreateParentDto';
 import { UpdateParentDto } from './dto/UpdateParentDto';
+import * as bcrypt from 'bcryptjs';
 
 @Injectable()
 export class ParentService {
@@ -18,20 +19,25 @@ export class ParentService {
 
   // Create parent with branch check
   async create(dto: CreateParentDto) {
-    // Check if branch exists
+    // 1️⃣ Find branch
     const branch = await this.branchRepo.findOne({
       where: { id: dto.branch_id },
     });
-    if (!branch)
-      throw new NotFoundException(`Branch with ID ${dto.branch_id} not found`);
+    if (!branch) throw new NotFoundException(`Branch not found`);
 
+    // 2️⃣ Hash password
+    const hashedPassword = await bcrypt.hash(dto.password, 10);
+
+    // 3️⃣ Create parent entity
     const parent = this.repo.create({
       id: randomUUID(),
       ...dto,
+      password: hashedPassword, // save hashed password
       is_deleted: false,
       created_at: new Date(),
     });
 
+    // 4️⃣ Save to DB
     return this.repo.save(parent);
   }
 

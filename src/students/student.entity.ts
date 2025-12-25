@@ -22,19 +22,19 @@ export class Student {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @ManyToOne(() => Branch, { nullable: false })
+  @ManyToOne(() => Branch, { nullable: true })
   branch: Branch;
 
-  @ManyToOne(() => AcademicYear, { nullable: false })
+  @ManyToOne(() => AcademicYear, { nullable: true })
   academicYear: AcademicYear;
 
   @Column({ type: 'varchar', length: 100 })
   student_id: string;
 
-  @ManyToOne(() => Province, { nullable: false })
+  @ManyToOne(() => Province, { nullable: true })
   province: Province;
 
-  @ManyToOne(() => District, { nullable: false })
+  @ManyToOne(() => District, { nullable: true })
   district: District;
 
   @Column({ type: 'varchar', length: 50 })

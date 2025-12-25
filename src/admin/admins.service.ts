@@ -6,7 +6,7 @@ import { Branch } from '../branch/branch.entity';
 import { Role } from '../role/role.entity';
 import { CreateAdminDto } from './dto/create-admin.dto';
 import { UpdateAdminDto } from './dto/update-admin.dto';
-
+import * as bcrypt from 'bcryptjs';
 @Injectable()
 export class AdminsService {
   constructor(
@@ -23,11 +23,14 @@ export class AdminsService {
     const admin = new Admin();
 
     admin.username = dto.username;
-    admin.password = dto.password;
+
+    // Hash the password
+    admin.password = await bcrypt.hash(dto.password, 10);
+
     admin.email = dto.email;
 
     // Convert string to Date
-    admin.join_date = new Date(dto.joinDate); // <-- ensure valid Date
+    admin.join_date = new Date(dto.joinDate);
     admin.dob = new Date(dto.dob);
 
     admin.first_name = dto.firstName;
