@@ -33,7 +33,7 @@ export class StudentController {
       }),
     }),
   )
-  async createStudent(@UploadedFile() file: Multer.File, @Body() body: any) {
+  async createStudent(@UploadedFile() file: Express.Multer.File, @Body() body: any) {
     const data: any = {
       ...body,
       emergency_contacts: body.emergency_contacts
@@ -65,7 +65,7 @@ export class StudentController {
   )
   async updateStudent(
     @Param('id') id: string,
-    @UploadedFile() file: Multer.File,
+    @UploadedFile() file: Express.Multer.File,
     @Body() body: any,
   ) {
     const data: any = {

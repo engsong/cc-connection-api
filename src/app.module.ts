@@ -25,6 +25,17 @@ import { EventModule } from './event/event.module';
 import { TaskModule } from './task/task.module';
 import { EventActivityModule } from './eventactivity/eventActivity.module';
 import { AuthModule } from './auth/auth.module';
+import { SubjectsModule } from './subjects/subjects.module';
+import { LessonsModule } from './lessons/lessons.module';
+import { LessonInfoModule } from './lesson_info/lesson-info.module';
+import { HomeworkModule } from './homework/homework.module';
+import { EvaluationModule } from './evaluations/evaluation.module';
+import { ParticipationScoreModule } from './participantion_score/participation-score.module';
+import { PermissionModuleModule } from './permission_modules/permission-module.module';
+import { PermissionModule } from './permissions/permission.module';
+import { ExaminationModule } from './examination/examination.module';
+import { LevelsModule } from './levels/levels.module';
+import { TeachingModule } from './teaching/teaching.module';
 
 @Module({
   imports: [
@@ -69,6 +80,18 @@ import { AuthModule } from './auth/auth.module';
     TaskModule,
     EventActivityModule,
     AuthModule,
+    SubjectsModule,
+    LessonsModule,
+    LessonInfoModule,
+    HomeworkModule,
+    EvaluationModule,
+    ParticipationListModule,
+    ParticipationScoreModule,
+    PermissionModuleModule,
+    PermissionModule,
+    ExaminationModule,
+    LevelsModule,
+    TeachingModule,
   ],
   controllers: [HealthController],
 })

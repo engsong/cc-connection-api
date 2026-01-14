@@ -8,6 +8,9 @@ import { Role } from '../role/role.entity';
 import { Saving } from '../savings/savings.entity';
 import { ParticipationScore } from '../particippant-scores/participation_scores.entity';
 import { Admin } from '../admin/admin.entity';
+import { Subject } from '../subjects/subject.entity';
+import { Level } from '../levels/level.entity';
+import { Teaching } from '../teaching/teaching.entity';
 
 @Entity('branches')
 export class Branch {
@@ -69,4 +72,11 @@ export class Branch {
 
   @OneToMany(() => Admin, (admin) => admin.branch)
   admins: Admin[];
+  @OneToMany(() => Subject, (subject) => subject.branch)
+  subjects: Subject[];
+
+  @OneToMany(() => Level, (level) => level.branch)
+  levels: Level[];
+  @OneToMany(() => Teaching, (t) => t.teacher)
+  teachings: Teaching[];
 }

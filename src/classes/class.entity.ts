@@ -12,6 +12,7 @@ import { Branch } from '../branch/branch.entity';
 import { AcademicYear } from '../academic_years/academic.entity';
 import { YearLevel } from '../year-level/year-level.entity';
 import { Saving } from '../savings/savings.entity';
+import { Teaching } from '../teaching/teaching.entity';
 
 @Entity('classes')
 export class Class {
@@ -71,4 +72,7 @@ export class Class {
 
   @OneToMany(() => Saving, (saving) => saving.branch)
   savings: Saving[];
+
+  @OneToMany(() => Teaching, (t) => t.teacher)
+  teachings: Teaching[];
 }

@@ -9,7 +9,7 @@ import {
 } from 'typeorm';
 
 import { Role } from '../role/role.entity';
-import { PermissionModule } from '../permission-module/permission-module.entity';
+import { PermissionModule } from '../permission-module/permission_module.entity';
 import { Admin } from '../admin/admin.entity';
 
 @Entity('permissions')

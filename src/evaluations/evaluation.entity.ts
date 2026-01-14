@@ -1,0 +1,46 @@
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 'typeorm';
+import { Subject } from '../subjects/subject.entity';
+import { Lesson } from '../lessons/lesson.entity';
+import { LessonInfo } from '../lesson_info/lesson-info.entity';
+import { Admin } from '../admin/admin.entity';
+import { Class } from '../classes/class.entity';
+import { Student } from '../students/student.entity';
+
+@Entity('evaluations')
+export class Evaluation {
+  @PrimaryGeneratedColumn()
+  id: number;
+
+  @ManyToOne(() => Subject, { eager: true })
+  @JoinColumn({ name: 'subject_id' })
+  subject: Subject;
+
+  @ManyToOne(() => Lesson, { eager: true })
+  @JoinColumn({ name: 'lesson_id' })
+  lesson: Lesson;
+
+  @ManyToOne(() => LessonInfo, { eager: true })
+  @JoinColumn({ name: 'lesson_info_id' })
+  lesson_info: LessonInfo;
+
+  @ManyToOne(() => Admin, { eager: true })
+  @JoinColumn({ name: 'admin_id' })
+  admin: Admin;
+
+  @ManyToOne(() => Class, { eager: true })
+  @JoinColumn({ name: 'class_id' })
+  class: Class;
+
+  @ManyToOne(() => Student, { eager: true })
+  @JoinColumn({ name: 'student_id' })
+  student: Student;
+
+  @Column({ type: 'float', nullable: true })
+  score: number;
+
+  @Column({ type: 'timestamp', nullable: true })
+  created_at: Date;
+
+  @Column({ type: 'timestamp', nullable: true })
+  updated_at: Date;
+}

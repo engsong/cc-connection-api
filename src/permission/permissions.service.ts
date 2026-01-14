@@ -5,7 +5,7 @@ import { Permission } from './permission.entity';
 import { CreatePermissionDto } from './dto/create-permission.dto';
 import { UpdatePermissionDto } from './dto/update-permission.dto';
 import { Role } from '../role/role.entity';
-import { PermissionModule } from '../permission-module/permission-module.entity';
+import { PermissionModule } from '../permission-module/permission_module.entity';
 import { Admin } from '../admin/admin.entity';
 
 @Injectable()

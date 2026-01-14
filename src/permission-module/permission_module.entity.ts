@@ -3,7 +3,9 @@ import {
   PrimaryGeneratedColumn,
   Column,
   CreateDateColumn,
+  OneToMany,
 } from 'typeorm';
+import { Permission } from '../permissions/permissions.entity';
 
 @Entity('permission_modules')
 export class PermissionModule {
@@ -14,5 +16,9 @@ export class PermissionModule {
   name: string;
 
   @CreateDateColumn({ name: 'created_at' })
-  createdAt: Date;
+  created_at: Date;
+
+  // OneToMany ฝั่ง Permission
+  @OneToMany(() => Permission, (permission) => permission.permission_module)
+  permissions: Permission[];
 }

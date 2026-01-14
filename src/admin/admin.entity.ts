@@ -5,9 +5,12 @@ import {
   ManyToOne,
   CreateDateColumn,
   UpdateDateColumn,
+  OneToMany,
 } from 'typeorm';
 import { Branch } from '../branch/branch.entity';
 import { Role } from '../role/role.entity';
+import { ParticipationScore } from '../participantion_score/participation-score.entity';
+import { Teaching } from '../teaching/teaching.entity';
 
 @Entity('admins')
 export class Admin {
@@ -76,4 +79,16 @@ export class Admin {
 
   @UpdateDateColumn()
   updated_at: Date;
+
+  @OneToMany(() => ParticipationScore, (ps) => ps.added_by)
+  addedParticipationScores: ParticipationScore[];
+
+  @OneToMany(() => Teaching, (t) => t.teacher)
+  teachings: Teaching[];
+
+  // ========================
+  // NEW: Store profile picture path
+  // ========================
+  @Column({ type: 'text', nullable: true })
+  profile_pic: string; // ตัวอย่าง path: "upload/admin/filename.jpg"
 }

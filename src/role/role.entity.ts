@@ -10,6 +10,7 @@ import {
 } from 'typeorm';
 import { Branch } from '../branch/branch.entity';
 import { Admin } from '../admin/admin.entity';
+import { Permission } from '../permission/permission.entity';
 
 @Entity('roles')
 export class Role {
@@ -44,4 +45,7 @@ export class Role {
 
   @OneToMany(() => Admin, (admin) => admin.role)
   admins: Admin[];
+  
+   @OneToMany(() => Permission, (permission) => permission.role)
+  permissions: Permission[];
 }

@@ -2,49 +2,43 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   Column,
-  ManyToOne,
-  JoinColumn,
   CreateDateColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { Admin } from '../admin/admin.entity';
-import { Parent } from '../parents/parent.entity';
+
+export enum AuditorType {
+  ADMIN = 'ADMIN',
+  PARENT = 'PARENT',
+}
+
+export enum ModuleType {
+  TASK = 'TASK',
+  EVENT = 'EVENT',
+}
 
 @Entity('comments')
 export class Comment {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ nullable: true })
+  @Column('text')
   comment: string;
 
-  // Separate foreign key for Admin
-  @Column({ type: 'uuid', nullable: true })
-  admin_id: string;
+  @Column({ type: 'uuid' })
+  auditor_id: string; // admin_id หรือ parent_id
 
-  @ManyToOne(() => Admin, { nullable: true })
-  @JoinColumn({ name: 'admin_id' })
-  admin: Admin;
+  @Column({ type: 'enum', enum: AuditorType })
+  auditor_type: AuditorType;
 
-  // Separate foreign key for Parent
-  @Column({ type: 'uuid', nullable: true })
-  parent_id: string;
-
-  @ManyToOne(() => Parent, { nullable: true })
-  @JoinColumn({ name: 'parent_id' })
-  parent: Parent;
-
-  // Optional module and auditor_type fields
-  @Column({ type: 'uuid', nullable: true })
+  @Column({ type: 'uuid' })
   module_id: string;
 
-  @Column({ type: 'int2', nullable: true })
-  auditor_type: number;
+  @Column({ type: 'enum', enum: ModuleType })
+  module_type: ModuleType;
 
-  // Timestamps
-  @CreateDateColumn({ type: 'timestamptz' })
+  @CreateDateColumn()
   created_at: Date;
 
-  @UpdateDateColumn({ type: 'timestamptz' })
+  @UpdateDateColumn()
   updated_at: Date;
 }
