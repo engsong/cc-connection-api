@@ -63,6 +63,11 @@ export class AppointmentPersonService {
     });
   }
 
+  async findByAppointmentBody(appointmentId: string) {
+    return this.repo.find({
+      where: { appointment_id: appointmentId, is_deleted: false },
+    });
+  }
   async findByBranch(branchId: string) {
     return this.repo.find({
       where: { branch_id: branchId, is_deleted: false },

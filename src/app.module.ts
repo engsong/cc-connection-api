@@ -36,6 +36,7 @@ import { PermissionModule } from './permissions/permission.module';
 import { ExaminationModule } from './examination/examination.module';
 import { LevelsModule } from './levels/levels.module';
 import { TeachingModule } from './teaching/teaching.module';
+import { AppointmentPersonModule } from './appointment-person/appointment-person.module';
 
 @Module({
   imports: [
@@ -92,6 +93,7 @@ import { TeachingModule } from './teaching/teaching.module';
     ExaminationModule,
     LevelsModule,
     TeachingModule,
+    AppointmentPersonModule,
   ],
   controllers: [HealthController],
 })

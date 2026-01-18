@@ -32,7 +32,7 @@ export class AppointmentPerson {
   // -----------------------------
   // Foreign Key: appointment_id → appointments.id
   // -----------------------------
-  @Column({ type: 'varchar', length: 24 })
+  @Column({ type: 'varchar', length: 36 })
   appointment_id: string;
 
   @ManyToOne(() => Appointment, (appt) => appt.appointmentPersons, {
@@ -44,7 +44,7 @@ export class AppointmentPerson {
   // -----------------------------
   // Foreign Key: academic_year_id → academic_years.id
   // -----------------------------
-  @Column({ type: 'varchar', length: 50 })
+  @Column({ type: 'varchar', length: 36 })
   academic_year_id: string;
 
   @ManyToOne(() => AcademicYear, (ay) => ay.appointmentPersons, {
@@ -56,7 +56,7 @@ export class AppointmentPerson {
   // -----------------------------
   // Other columns
   // -----------------------------
-  @Column({ type: 'varchar', length: 100 })
+  @Column({ type: 'varchar', length: 36 })
   person_id: string;
 
   @Column({ type: 'varchar', length: 50 })
