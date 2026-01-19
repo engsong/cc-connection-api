@@ -25,6 +25,9 @@ export class Task {
   @Column({ length: 255 })
   name: string;
 
+  @CreateDateColumn({ type: 'timestamptz' })
+  deadline: Date;
+
   @Column({ length: 255, nullable: true })
   description: string;
 
