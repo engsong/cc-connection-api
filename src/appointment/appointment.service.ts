@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Between, Repository } from 'typeorm';
 import { Appointment } from './appointment.entity';
 import { Branch } from '../branch/branch.entity';
 import { AcademicYear } from '../academic_years/academic.entity';
@@ -53,6 +53,20 @@ export class AppointmentService {
     return this.repo.find({
       where: { is_deleted: false },
       relations: ['branch', 'academicYear'], // return branch & academic year info
+    });
+  }
+
+  async findBydate(dateFrom?: string, dateTo?: string) {
+    const where: any = { is_deleted: false };
+
+    // Add date range filter if both dates are provided
+    if (dateFrom && dateTo) {
+      where.date = Between(dateFrom, dateTo);
+    }
+
+    return this.repo.find({
+      where,
+      relations: ['branch', 'academicYear'],
     });
   }
 

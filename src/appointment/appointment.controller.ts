@@ -6,6 +6,7 @@ import {
   Delete,
   Body,
   Param,
+  Query,
 } from '@nestjs/common';
 import { AppointmentService } from './appointment.service';
 import { CreateAppointmentDto } from './create-appointment.dto';
@@ -23,6 +24,14 @@ export class AppointmentController {
   @Get()
   findAll() {
     return this.service.findAll();
+  }
+
+  @Get()
+  findBydate(
+    @Query('dateFrom') dateFrom?: string,
+    @Query('dateTo') dateTo?: string,
+  ) {
+    return this.service.findBydate(dateFrom, dateTo);
   }
 
   @Get(':id')

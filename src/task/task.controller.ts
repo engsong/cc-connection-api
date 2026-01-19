@@ -8,7 +8,7 @@ export class TaskController {
 
   @Post()
   create(
-    @Body() data: Partial<Task>,
+    @Body() data: any,
     @Query('files') filePaths?: string[],
   ): Promise<Task> {
     return this.taskService.create(data, filePaths);

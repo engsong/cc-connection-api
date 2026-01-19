@@ -16,6 +16,7 @@ import { District } from '../location/district.entity';
 import { Parent } from '../parents/parent.entity';
 import { Saving } from '../savings/savings.entity';
 import { ParticipationScore } from '../particippant-scores/participation_scores.entity';
+import { Task } from '../task/task.entity';
 
 @Entity('students')
 export class Student {
@@ -100,4 +101,7 @@ export class Student {
   savings: Saving[];
   @OneToMany(() => ParticipationScore, (ps) => ps.branch)
   participationScores: ParticipationScore[];
+
+  @OneToMany(() => Task, (task) => task.student)
+  tasks: Task[];
 }

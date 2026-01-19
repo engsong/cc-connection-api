@@ -3,7 +3,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Task } from './task.entity';
 import { FileService } from '../file/file.service';
-import { File } from '../file/files.entity';
+import { CreateTaskDto } from './dto/CreateTaskDto';
+import { UpdateTaskDto } from './dto/UpdateTaskDto';
 
 @Injectable()
 export class TaskService {
@@ -13,42 +14,61 @@ export class TaskService {
     private readonly fileService: FileService,
   ) {}
 
-  async create(data: Partial<Task>, filePaths?: string[]): Promise<Task> {
-    const newTask = this.taskRepo.create(data);
+  async create(data: CreateTaskDto, filePaths?: string[]): Promise<Task> {
+    const { student_id, ...taskData } = data;
+
+    const newTask = this.taskRepo.create({
+      ...taskData,
+      student: student_id ? ({ id: student_id } as any) : null,
+    });
+
     const savedTask = await this.taskRepo.save(newTask);
 
-    if (filePaths && filePaths.length > 0) {
+    if (filePaths?.length) {
       for (const path of filePaths) {
         await this.fileService.create({
           module: 'task',
           task_id: savedTask.id,
           file_path: path,
-        } as Partial<File>);
+        } as any);
       }
     }
 
-    return savedTask;
+    return this.findOne(savedTask.id);
   }
 
   async findAll(): Promise<Task[]> {
-    return this.taskRepo.find({ where: {} });
+    return this.taskRepo.find({
+      relations: ['student', 'files'],
+      order: { created_at: 'DESC' },
+    });
   }
 
   async findOne(id: string): Promise<Task> {
-    const task = await this.taskRepo.findOne({ where: { id } });
+    const task = await this.taskRepo.findOne({
+      where: { id },
+      relations: ['student', 'files'],
+    });
     if (!task) throw new NotFoundException('Task not found');
     return task;
   }
 
-  async update(id: string, data: Partial<Task>): Promise<Task> {
-    await this.findOne(id);
-    await this.taskRepo.update(id, data);
+  async update(id: string, data: UpdateTaskDto): Promise<Task> {
+    const task = await this.findOne(id);
+
+    if (data.student_id) {
+      task.student = { id: data.student_id } as any;
+      delete data.student_id;
+    }
+
+    Object.assign(task, data);
+    await this.taskRepo.save(task);
+
     return this.findOne(id);
   }
 
   async delete(id: string): Promise<{ message: string }> {
     const task = await this.findOne(id);
-    // optional: you can implement soft delete
     await this.taskRepo.remove(task);
     return { message: 'Task deleted' };
   }

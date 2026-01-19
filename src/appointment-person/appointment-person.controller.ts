@@ -36,10 +36,9 @@ export class AppointmentPersonController {
   }
 
   @Post('appointment')
-  findByAppointmentBody(@Body('appointmentId') appointmentId: string) {
-    return this.service.findByAppointmentBody(appointmentId);
-  }
-
+findByAppointmentBody(@Body() body: { appointment_id: string }) {
+  return this.service.findByAppointment(body.appointment_id);
+}
   @Get('branch/:branchId')
   findByBranch(@Param('branchId') branchId: string) {
     return this.service.findByBranch(branchId);
