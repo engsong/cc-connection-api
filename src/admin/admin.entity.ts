@@ -80,7 +80,7 @@ export class Admin {
   @UpdateDateColumn()
   updated_at: Date;
 
-  @OneToMany(() => ParticipationScore, (ps) => ps.added_by)
+  @OneToMany(() => ParticipationScore, (ps) => ps.addedBy)
   addedParticipationScores: ParticipationScore[];
 
   @OneToMany(() => Teaching, (t) => t.teacher)

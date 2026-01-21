@@ -18,32 +18,31 @@ export class ParticipationScore {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ManyToOne(() => Student, (student) => student.participationScores)
+  @ManyToOne(() => Student)
   @JoinColumn({ name: 'student_id' })
   student: Student;
 
-  @ManyToOne(() => Branch, (branch) => branch.participationScores)
+  @ManyToOne(() => Branch)
   @JoinColumn({ name: 'branch_id' })
   branch: Branch;
 
-  @ManyToOne(() => AcademicYear, (year) => year.participationScores)
+  @ManyToOne(() => AcademicYear)
   @JoinColumn({ name: 'academic_year_id' })
-  academic_year: AcademicYear;
+  academicYear: AcademicYear;
 
-  @Column({ type: 'date' })
-  date: string;
+  @ManyToOne(() => ParticipationList)
+  @JoinColumn({ name: 'participation_list_id' })
+  participationList: ParticipationList;
 
-  @ManyToOne(() => ParticipationList, (pl) => pl.participationScores)
-@JoinColumn({ name: 'participation_list_id' })
-participation_list: ParticipationList; // TypeORM จะใช้ type ของ PK ของ ParticipationList
-
+  @ManyToOne(() => Admin)
+  @JoinColumn({ name: 'added_by' })
+  addedBy: Admin;
 
   @Column()
   score: number;
 
-  @ManyToOne(() => Admin, (admin) => admin.addedParticipationScores)
-  @JoinColumn({ name: 'added_by' })
-  added_by: Admin;
+  @Column({ type: 'date' })
+  date: string;
 
   @CreateDateColumn()
   created_at: Date;
