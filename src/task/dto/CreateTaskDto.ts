@@ -1,24 +1,26 @@
-// dto/create-task.dto.ts
-import { IsOptional, IsString, IsUUID } from 'class-validator';
+import { IsString, IsOptional, IsUUID, IsEnum, IsDateString } from 'class-validator';
+
+export const AddedByTypes = ['admin', 'parent', 'teacher', 'staff', 'superadmin'] as const;
+export type AddedByType = (typeof AddedByTypes)[number];
 
 export class CreateTaskDto {
   @IsString()
   name: string;
+
+  @IsDateString()
+  deadline: string;
 
   @IsOptional()
   @IsString()
   description?: string;
 
   @IsOptional()
-  @IsString()
-  academic_year?: string;
-
-  @IsOptional()
-  @IsString()
-  branch_id?: string;
-
-  // ✅ ต้องมี
-  @IsOptional()
   @IsUUID()
   student_id?: string;
+
+  @IsUUID()
+  added_by_id: string;
+
+  @IsEnum(AddedByTypes)
+  added_by_type: AddedByType;
 }

@@ -52,11 +52,11 @@ export class ParticipationScoreService {
     const participationScore = this.participationScoreRepo.create({
       student,
       branch,
-      academic_year: academicYear,
+      academicYear,
+      participationList,
       date: dto.date,
-      participation_list: participationList,
       score: dto.score,
-      added_by: admin,
+      addedBy: admin,
     });
 
     return this.participationScoreRepo.save(participationScore);
@@ -122,7 +122,7 @@ export class ParticipationScoreService {
         throw new NotFoundException(
           `AcademicYear with id ${dto.academic_year_id} not found`,
         );
-      score.academic_year = academicYear;
+      score.academicYear = academicYear;
     }
 
     if (dto.participation_list_id) {
@@ -133,7 +133,7 @@ export class ParticipationScoreService {
         throw new NotFoundException(
           `ParticipationList with id ${dto.participation_list_id} not found`,
         );
-      score.participation_list = list;
+      score.participationList = list;
     }
 
     if (dto.added_by) {
@@ -142,7 +142,7 @@ export class ParticipationScoreService {
       });
       if (!admin)
         throw new NotFoundException(`Admin with id ${dto.added_by} not found`);
-      score.added_by = admin;
+      score.addedBy = admin;
     }
 
     if (dto.date) score.date = dto.date;

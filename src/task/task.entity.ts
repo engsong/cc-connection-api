@@ -16,38 +16,34 @@ export class Task {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ length: 255, nullable: true })
-  academic_year: string;
-
-  @Column({ length: 255, nullable: true })
-  branch_id: string;
-
   @Column({ length: 255 })
   name: string;
 
-  @CreateDateColumn({ type: 'timestamptz' })
+  @Column({ type: 'timestamptz' })
   deadline: Date;
 
   @Column({ length: 255, nullable: true })
   description: string;
 
+  // 🔑 id ของคนที่สร้าง (admin.id หรือ parent.id)
   @Column({ type: 'uuid', nullable: true })
-  added_by: string;
+  added_by_id: string;
 
-  // ✅ foreign key relation
+  @Column({ length: 50, nullable: true })
+  added_by_type: string; // ไม่ต้อง enum
+
   @ManyToOne(() => Student, (student) => student.tasks, {
     nullable: true,
     onDelete: 'SET NULL',
   })
-  @JoinColumn({ name: 'student_id' }) // column name in DB
+  @JoinColumn({ name: 'student_id' })
   student: Student;
 
-  @CreateDateColumn({ type: 'timestamptz' })
+  @CreateDateColumn()
   created_at: Date;
 
-  @UpdateDateColumn({ type: 'timestamptz' })
+  @UpdateDateColumn()
   updated_at: Date;
-
   @OneToMany(() => File, (file) => file.task)
   files: File[];
 }
