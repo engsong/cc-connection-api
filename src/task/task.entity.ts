@@ -1,3 +1,4 @@
+// task.entity.ts
 import {
   Entity,
   PrimaryGeneratedColumn,
@@ -23,27 +24,28 @@ export class Task {
   deadline: Date;
 
   @Column({ length: 255, nullable: true })
-  description: string;
+  description?: string;
 
-  // 🔑 id ของคนที่สร้าง (admin.id หรือ parent.id)
+  // polymorphic user
   @Column({ type: 'uuid', nullable: true })
-  added_by_id: string;
+  added_by_id?: string;
 
   @Column({ length: 50, nullable: true })
-  added_by_type: string; // ไม่ต้อง enum
+  added_by_type?: string; // admin | teacher | staff | parent | superadmin
 
   @ManyToOne(() => Student, (student) => student.tasks, {
     nullable: true,
     onDelete: 'SET NULL',
   })
   @JoinColumn({ name: 'student_id' })
-  student: Student;
+  student?: Student;
+
+  @OneToMany(() => File, (file) => file.task)
+  files: File[];
 
   @CreateDateColumn()
   created_at: Date;
 
   @UpdateDateColumn()
   updated_at: Date;
-  @OneToMany(() => File, (file) => file.task)
-  files: File[];
 }
