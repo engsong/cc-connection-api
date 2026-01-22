@@ -40,10 +40,12 @@ export class EventActivity {
   @UpdateDateColumn({ type: 'timestamptz' })
   updated_at: Date;
 
+  // 🔹 Relation to Event
   @ManyToOne(() => Event, (event) => event.activities)
   @JoinColumn({ name: 'event_id' })
   event: Event;
 
+  // 🔹 Relation to File (for multiple files)
   @OneToMany(() => File, (file) => file.eventActivity)
   files: File[];
 }

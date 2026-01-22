@@ -23,8 +23,8 @@ export class Event {
   @Column({ length: 255 })
   name: string;
 
-  @Column({ type: 'text' })
-  image_path: string;
+  @Column({ type: 'text', nullable: true })
+  image_path: string; // optional main image
 
   @Column({ default: true })
   is_active: boolean;
@@ -38,9 +38,11 @@ export class Event {
   @UpdateDateColumn({ type: 'timestamptz' })
   updated_at: Date;
 
+  // 🔹 Relation to EventActivity
   @OneToMany(() => EventActivity, (activity) => activity.event)
   activities: EventActivity[];
 
+  // 🔹 Relation to File (for multiple files)
   @OneToMany(() => File, (file) => file.event)
   files: File[];
 }

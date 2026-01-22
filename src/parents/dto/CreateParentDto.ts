@@ -19,4 +19,8 @@ export class CreateParentDto {
   occupation: string;
   working_place: string;
   is_active?: boolean;
+
+  // ✅ เพิ่มสอง field สำหรับไฟล์
+  profile_pic?: string;
+  id_card?: string;
 }

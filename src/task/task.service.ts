@@ -74,9 +74,14 @@ export class TaskService {
     return task; // ตอนนี้ guaranteed non-null
   }
 
-  async update(id: string, data: UpdateTaskDto): Promise<Task> {
+  async update(
+    id: string,
+    data: UpdateTaskDto,
+    files?: Express.Multer.File[], // รับไฟล์ใหม่จาก frontend
+  ): Promise<Task> {
     const task = await this.findOne(id); // findOne already throws NotFoundException
 
+    // ถ้ามี student_id ให้ map ไปยัง relation
     if (data.student_id) {
       task.student = { id: data.student_id } as any;
       delete data.student_id;
@@ -87,15 +92,38 @@ export class TaskService {
       task.deadline = new Date(data.deadline);
     }
 
-    Object.assign(task, data); // copy property อื่น ๆ
-    await this.taskRepo.save(task);
+    // update field อื่น ๆ
+    Object.assign(task, data);
+    const updatedTask = await this.taskRepo.save(task);
 
-    return this.findOne(id);
+    // ถ้ามีไฟล์ใหม่
+    if (files?.length) {
+      for (const file of files) {
+        await this.fileService.create({
+          module: 'task',
+          task_id: updatedTask.id,
+          file_path: file.path,
+        });
+      }
+    }
+
+    return updatedTask;
   }
 
   async delete(id: string): Promise<{ message: string }> {
-    const task = await this.findOne(id);
+    const task = await this.findOne(id); // findOne throws NotFoundException
+
+    // 1️⃣ ดึงไฟล์ทั้งหมดที่เกี่ยวข้องกับ Task
+    const files = await this.fileService.findByModuleAndOwner('task', id);
+
+    // 2️⃣ ลบไฟล์ทั้งหมด (soft delete)
+    for (const file of files) {
+      await this.fileService.softDelete(file.id);
+    }
+
+    // 3️⃣ ลบ Task
     await this.taskRepo.remove(task);
-    return { message: 'Task deleted' };
+
+    return { message: 'Task and its files deleted' };
   }
 }

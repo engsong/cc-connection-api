@@ -50,4 +50,11 @@ export class FileService {
     await this.fileRepo.save(file);
     return { message: 'File soft-deleted' };
   }
+
+  // Update file record
+  async update(id: string, data: Partial<File>): Promise<File> {
+    const file = await this.findOne(id); // ตรวจสอบก่อนว่า file มีอยู่
+    Object.assign(file, data); // อัปเดต property จาก data
+    return this.fileRepo.save(file); // บันทึกลง DB
+  }
 }

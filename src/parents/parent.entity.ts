@@ -66,7 +66,7 @@ export class Parent {
   @Column({ length: 255 })
   province: string;
 
-  @Column({ type: 'text' })
+  @Column({ type: 'text', nullable: true })
   address: string;
 
   @Column({ length: 255 })
@@ -74,6 +74,13 @@ export class Parent {
 
   @Column({ length: 255 })
   working_place: string;
+
+  // ✅ Add image columns
+  @Column({ length: 255, nullable: true })
+  profile_pic: string;
+
+  @Column({ length: 255, nullable: true })
+  id_card: string;
 
   @Column({ default: true })
   is_active: boolean;
