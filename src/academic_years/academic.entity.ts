@@ -4,7 +4,7 @@ import { Appointment } from '../appointment/appointment.entity';
 import { AppointmentPerson } from '../appointment-person/appointment-person.entity';
 import { Class } from '../classes/class.entity';
 import { Saving } from '../savings/savings.entity';
-import { ParticipationScore } from '../particippant-scores/participation_scores.entity';
+import { ParticipationScore } from '../participantion_score/participation-score.entity';
 
 @Entity('academic_years')
 export class AcademicYear {
@@ -40,6 +40,6 @@ export class AcademicYear {
   @OneToMany(() => Saving, (saving) => saving.branch)
   savings: Saving[];
 
-  @OneToMany(() => ParticipationScore, (ps) => ps.branch)
+  @OneToMany(() => ParticipationScore, (ps) => ps.branchId)
   participationScores: ParticipationScore[];
 }

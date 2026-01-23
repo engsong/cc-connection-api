@@ -6,11 +6,11 @@ import { Class } from '../classes/class.entity';
 import { Parent } from '../parents/parent.entity';
 import { Role } from '../role/role.entity';
 import { Saving } from '../savings/savings.entity';
-import { ParticipationScore } from '../particippant-scores/participation_scores.entity';
 import { Admin } from '../admin/admin.entity';
 import { Subject } from '../subjects/subject.entity';
 import { Level } from '../levels/level.entity';
 import { Teaching } from '../teaching/teaching.entity';
+import { ParticipationScore } from '../participantion_score/participation-score.entity';
 
 @Entity('branches')
 export class Branch {
@@ -67,7 +67,7 @@ export class Branch {
   @OneToMany(() => Saving, (saving) => saving.branch)
   savings: Saving[];
 
-  @OneToMany(() => ParticipationScore, (ps) => ps.branch)
+  @OneToMany(() => ParticipationScore, (ps) => ps.branchId)
   participationScores: ParticipationScore[];
 
   @OneToMany(() => Admin, (admin) => admin.branch)

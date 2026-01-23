@@ -12,8 +12,6 @@ import { ParentModule } from './parents/parent.module';
 import { LaocationModule } from './location/laocation.module';
 import { StudentModule } from './students/student.module';
 import { SavingsModule } from './savings/saving.module';
-import { ParticipationListModule } from './participant-list/participation-list.module';
-import { ParticipationScoresModule } from './particippant-scores/participation-scores.module';
 import { AdminsModule } from './admin/admins.module';
 import { PermissionModulesModule } from './permission-module/permission-modules.module';
 import { PermissionsModule } from './permission/permissions.module';
@@ -37,6 +35,7 @@ import { ExaminationModule } from './examination/examination.module';
 import { LevelsModule } from './levels/levels.module';
 import { TeachingModule } from './teaching/teaching.module';
 import { AppointmentPersonModule } from './appointment-person/appointment-person.module';
+import { ParticipationListModule } from './participantion_list/participation_list.module';
 
 @Module({
   imports: [
@@ -69,8 +68,7 @@ import { AppointmentPersonModule } from './appointment-person/appointment-person
     StudentModule,
     RolesModule,
     SavingsModule,
-    ParticipationListModule,
-    ParticipationScoresModule,
+    ParticipationScoreModule,
     AdminsModule,
     PermissionModulesModule,
     PermissionsModule,

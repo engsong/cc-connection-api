@@ -2,157 +2,72 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { ParticipationScore } from './participation-score.entity';
-import { Student } from '../students/student.entity';
-import { Branch } from '../branch/branch.entity';
-import { Admin } from '../admin/admin.entity';
 import { CreateParticipationScoreDto } from './dto/create-participation-score.dto';
 import { UpdateParticipationScoreDto } from './dto/update-participation-score.dto';
-import { AcademicYear } from '../academic_years/academic.entity';
-import { ParticipationList } from '../participantion_list/participation-list.entity';
 
 @Injectable()
 export class ParticipationScoreService {
   constructor(
     @InjectRepository(ParticipationScore)
-    private readonly participationScoreRepo: Repository<ParticipationScore>,
-    @InjectRepository(Student)
-    private readonly studentRepo: Repository<Student>,
-    @InjectRepository(Branch)
-    private readonly branchRepo: Repository<Branch>,
-    @InjectRepository(AcademicYear)
-    private readonly academicYearRepo: Repository<AcademicYear>,
-    @InjectRepository(ParticipationList)
-    private readonly participationListRepo: Repository<ParticipationList>,
-    @InjectRepository(Admin)
-    private readonly adminRepo: Repository<Admin>,
+    private readonly repo: Repository<ParticipationScore>,
   ) {}
 
+  /* ================= CREATE ================= */
   async create(dto: CreateParticipationScoreDto) {
-    const student = await this.studentRepo.findOne({
-      where: { id: String(dto.student_id) },
-    });
-    const branch = await this.branchRepo.findOne({
-      where: { id: String(dto.branch_id) },
-    });
-    const academicYear = await this.academicYearRepo.findOne({
-      where: { id: String(dto.academic_year_id) },
-    });
-    const participationList = await this.participationListRepo.findOne({
-      where: { id: String(dto.participation_list_id) }, // ต้องใช้ Number()
+    const entity = this.repo.create({
+      branchId: Number(dto.branchId),
+      academicYearId: Number(dto.academicYearId),
+      addedBy: dto.addedBy,
+      scores: dto.scores.map(s => ({
+        participationId: s.id,
+        participationName: s.name,
+        score: s.score,
+      })),
     });
 
-    const admin = await this.adminRepo.findOne({
-      where: { id: String(dto.added_by) },
-    });
-
-    if (!student || !branch || !academicYear || !participationList || !admin) {
-      throw new NotFoundException('Related entity not found');
-    }
-
-    const participationScore = this.participationScoreRepo.create({
-      student,
-      branch,
-      academicYear,
-      participationList,
-      date: dto.date,
-      score: dto.score,
-      addedBy: admin,
-    });
-
-    return this.participationScoreRepo.save(participationScore);
+    return this.repo.save(entity);
   }
 
+  /* ================= GET ALL ================= */
   async findAll() {
-    return this.participationScoreRepo.find({
-      relations: [
-        'student',
-        'branch',
-        'academic_year',
-        'participation_list',
-        'added_by',
-      ],
+    return this.repo.find({
+      order: { created_at: 'DESC' },
     });
   }
 
+  /* ================= GET BY ID ================= */
   async findOne(id: number) {
-    const score = await this.participationScoreRepo.findOne({
-      where: { id },
-      relations: [
-        'student',
-        'branch',
-        'academic_year',
-        'participation_list',
-        'added_by',
-      ],
-    });
-    if (!score) throw new NotFoundException('Participation score not found');
-    return score;
+    const record = await this.repo.findOne({ where: { id } });
+    if (!record) throw new NotFoundException('Participation score not found');
+    return record;
   }
 
+  /* ================= UPDATE ================= */
   async update(id: number, dto: UpdateParticipationScoreDto) {
-    const score = await this.findOne(id);
+    const record = await this.repo.findOne({ where: { id } });
+    if (!record) throw new NotFoundException('Participation score not found');
 
-    if (dto.student_id) {
-      const student = await this.studentRepo.findOne({
-        where: { id: String(dto.student_id) },
-      });
-      if (!student)
-        throw new NotFoundException(
-          `Student with id ${dto.student_id} not found`,
-        );
-      score.student = student;
+    if (dto.branch_id !== undefined) record.branchId = Number(dto.branch_id);
+    if (dto.academic_year_id !== undefined) record.academicYearId = Number(dto.academic_year_id);
+    if (dto.date) record.created_at = new Date(dto.date);
+    if (dto.added_by) record.addedBy = String(dto.added_by);
+
+    if (dto.scores) {
+      record.scores = dto.scores.map(s => ({
+        participationId: s.id,
+        participationName: s.name,
+        score: s.score,
+      }));
     }
 
-    if (dto.branch_id) {
-      const branch = await this.branchRepo.findOne({
-        where: { id: String(dto.branch_id) },
-      });
-      if (!branch)
-        throw new NotFoundException(
-          `Branch with id ${dto.branch_id} not found`,
-        );
-      score.branch = branch;
-    }
-
-    if (dto.academic_year_id) {
-      const academicYear = await this.academicYearRepo.findOne({
-        where: { id: String(dto.academic_year_id) },
-      });
-      if (!academicYear)
-        throw new NotFoundException(
-          `AcademicYear with id ${dto.academic_year_id} not found`,
-        );
-      score.academicYear = academicYear;
-    }
-
-    if (dto.participation_list_id) {
-      const list = await this.participationListRepo.findOne({
-        where: { id: String(dto.participation_list_id) }, // string type
-      });
-      if (!list)
-        throw new NotFoundException(
-          `ParticipationList with id ${dto.participation_list_id} not found`,
-        );
-      score.participationList = list;
-    }
-
-    if (dto.added_by) {
-      const admin = await this.adminRepo.findOne({
-        where: { id: String(dto.added_by) },
-      });
-      if (!admin)
-        throw new NotFoundException(`Admin with id ${dto.added_by} not found`);
-      score.addedBy = admin;
-    }
-
-    if (dto.date) score.date = dto.date;
-    if (dto.score !== undefined) score.score = dto.score;
-
-    return this.participationScoreRepo.save(score);
+    return this.repo.save(record);
   }
 
+  /* ================= DELETE ================= */
   async remove(id: number) {
-    const score = await this.findOne(id);
-    return this.participationScoreRepo.remove(score);
+    const record = await this.repo.findOne({ where: { id } });
+    if (!record) throw new NotFoundException('Participation score not found');
+    await this.repo.remove(record);
+    return { message: 'Deleted successfully' };
   }
 }

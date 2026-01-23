@@ -1,34 +1,45 @@
-import { Controller, Get, Post, Put, Delete, Param, Body } from '@nestjs/common';
+import { Controller, Get, Post, Put, Delete, Body, Param, ParseIntPipe } from '@nestjs/common';
 import { ParticipationScoreService } from './participation-score.service';
 import { CreateParticipationScoreDto } from './dto/create-participation-score.dto';
 import { UpdateParticipationScoreDto } from './dto/update-participation-score.dto';
+import { Admin } from '../admin/admin.entity';
 
 @Controller('participation-scores')
 export class ParticipationScoreController {
   constructor(private readonly service: ParticipationScoreService) {}
 
-  @Post()
-  create(@Body() dto: CreateParticipationScoreDto) {
-    return this.service.create(dto);
-  }
-
+  /* ================= GET ALL ================= */
   @Get()
-  findAll() {
+  async findAll() {
     return this.service.findAll();
   }
 
+  /* ================= GET BY ID ================= */
   @Get(':id')
-  findOne(@Param('id') id: number) {
-    return this.service.findOne(Number(id));
+  async findOne(@Param('id', ParseIntPipe) id: number) {
+    return this.service.findOne(id);
   }
 
+  /* ================= CREATE ================= */
+  @Post()
+  async create(
+    @Body() dto: CreateParticipationScoreDto,
+  ) {
+    return this.service.create(dto);
+  }
+
+  /* ================= UPDATE ================= */
   @Put(':id')
-  update(@Param('id') id: number, @Body() dto: UpdateParticipationScoreDto) {
-    return this.service.update(Number(id), dto);
+  async update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() dto: UpdateParticipationScoreDto,
+  ) {
+    return this.service.update(id, dto);
   }
 
+  /* ================= DELETE ================= */
   @Delete(':id')
-  remove(@Param('id') id: number) {
-    return this.service.remove(Number(id));
+  async remove(@Param('id', ParseIntPipe) id: number) {
+    return this.service.remove(id);
   }
 }

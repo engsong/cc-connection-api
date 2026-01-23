@@ -1,5 +1,5 @@
 import { Controller, Get, Post, Put, Delete, Param, Body } from '@nestjs/common';
-import { ParticipationListService } from './participation-list.service';
+import { ParticipationListService } from './participation_list.service';
 import { CreateParticipationListDto } from './dto/create-participation-list.dto';
 import { UpdateParticipationListDto } from './dto/update-participation-list.dto';
 

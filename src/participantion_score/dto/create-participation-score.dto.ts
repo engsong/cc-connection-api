@@ -1,9 +1,12 @@
 export class CreateParticipationScoreDto {
-  student_id: string;
-  branch_id: string;
-  academic_year_id: number;
-  date: string;
-  participation_list_id: number;
+  branchId: string;
+  academicYearId: number;
+  addedBy: string;
+  scores: ParticipationScoreItemDto[];
+}
+
+export class ParticipationScoreItemDto {
+  id: string; // จาก participant list
+  name: string;
   score: number;
-  added_by: string;
 }

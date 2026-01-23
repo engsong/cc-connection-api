@@ -7,7 +7,7 @@ import { Student } from '../students/student.entity';
 import { Branch } from '../branch/branch.entity';
 import { Admin } from '../admin/admin.entity';
 import { AcademicYear } from '../academic_years/academic.entity';
-import { ParticipationList } from '../participantion_list/participation-list.entity';
+import { ParticipationList } from '../participantion_list/participation_list.entity';
 
 @Module({
   imports: [

@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { ParticipationList } from './participation-list.entity';
-import { ParticipationListService } from './participation-list.service';
-import { ParticipationListController } from './participation-list.controller';
+import { ParticipationListService } from './participation_list.service';
+import { ParticipationListController } from './participation_list.controller';
+import { ParticipationList } from './participation_list.entity';
 
 @Module({
   imports: [TypeOrmModule.forFeature([ParticipationList])],

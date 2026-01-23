@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { ParticipationList } from './participation-list.entity';
+import { ParticipationList } from './participation_list.entity';
 import { CreateParticipationListDto } from './dto/create-participation-list.dto';
 import { UpdateParticipationListDto } from './dto/update-participation-list.dto';
 
