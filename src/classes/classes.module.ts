@@ -9,6 +9,11 @@ import { Branch } from '../branch/branch.entity';
   imports: [TypeOrmModule.forFeature([Class, Branch])],
   controllers: [ClassesController],
   providers: [ClassesService],
-  exports: [ClassesService],
+  exports: [
+    ClassesService,
+    TypeOrmModule.forFeature([Class]),      // ← add this (or just TypeOrmModule)
+    // If you also need Branch repository in other modules later, add:
+    // TypeOrmModule.forFeature([Branch]),
+  ],
 })
 export class ClassesModule {}

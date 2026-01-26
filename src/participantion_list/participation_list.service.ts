@@ -1,7 +1,12 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  BadRequestException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Repository, In } from 'typeorm';
 import { ParticipationList } from './participation_list.entity';
+import { Class } from '../classes/class.entity';
 import { CreateParticipationListDto } from './dto/create-participation-list.dto';
 import { UpdateParticipationListDto } from './dto/update-participation-list.dto';
 
@@ -9,36 +14,88 @@ import { UpdateParticipationListDto } from './dto/update-participation-list.dto'
 export class ParticipationListService {
   constructor(
     @InjectRepository(ParticipationList)
-    private readonly participationRepo: Repository<ParticipationList>,
+    private participationRepo: Repository<ParticipationList>,
+
+    @InjectRepository(Class)
+    private classRepo: Repository<Class>,
   ) {}
 
-  async createParticipationList(dto: CreateParticipationListDto) {
-    const item = this.participationRepo.create(dto);
-    return this.participationRepo.save(item);
+  async create(dto: CreateParticipationListDto): Promise<ParticipationList> {
+    const classes = await this.classRepo.find({
+      where: { id: In(dto.classIds) },
+    });
+
+    if (classes.length !== dto.classIds.length) {
+      throw new BadRequestException('One or more class IDs do not exist');
+    }
+
+    const list = this.participationRepo.create({
+      name: dto.name,
+      score: dto.score,
+      description: dto.description,
+      classes,
+    });
+
+    return this.participationRepo.save(list);
   }
 
-  async getAllParticipationList() {
-    return this.participationRepo.find();
+  async findAll(): Promise<ParticipationList[]> {
+    return this.participationRepo.find({
+      relations: ['classes'],
+      order: { created_at: 'DESC' },
+    });
   }
 
-  async updateParticipationList(id: string, dto: UpdateParticipationListDto) {
-  const item = await this.getParticipationListById(id); // id ต้องเป็น string
-  Object.assign(item, dto);
-  return this.participationRepo.save(item);
-}
+  async findByClassId(classId: string): Promise<ParticipationList[]> {
+    return this.participationRepo
+      .createQueryBuilder('list')
+      .innerJoinAndSelect('list.classes', 'class')
+      .where('class.id = :classId', { classId })
+      .orderBy('list.created_at', 'ASC')
+      .getMany();
+  }
 
-async deleteParticipationList(id: string) {
-  const item = await this.getParticipationListById(id); // id ต้องเป็น string
-  return this.participationRepo.remove(item);
-}
+  async findOne(id: string): Promise<ParticipationList> {
+    const item = await this.participationRepo.findOne({
+      where: { id },
+      relations: ['classes'],
+    });
 
-// แก้ getParticipationListById ให้รับ string ด้วย
-async getParticipationListById(id: string) {
-  const item = await this.participationRepo.findOne({
-    where: { id }, // id เป็น string
-  });
-  if (!item) throw new NotFoundException('Participation list item not found');
-  return item;
-}
+    if (!item) {
+      throw new NotFoundException(`Participation list ${id} not found`);
+    }
 
+    return item;
+  }
+
+  async update(id: string, dto: UpdateParticipationListDto): Promise<ParticipationList> {
+    const list = await this.findOne(id);
+
+    // Update basic fields
+    if (dto.name !== undefined) list.name = dto.name;
+    if (dto.score !== undefined) list.score = dto.score;
+    if (dto.description !== undefined) list.description = dto.description;
+
+    // Update classes if provided
+    if (dto.classIds !== undefined) {
+      if (dto.classIds.length === 0) {
+        list.classes = [];
+      } else {
+        const classes = await this.classRepo.find({
+          where: { id: In(dto.classIds) },
+        });
+        if (classes.length !== dto.classIds.length) {
+          throw new BadRequestException('One or more class IDs do not exist');
+        }
+        list.classes = classes;
+      }
+    }
+
+    return this.participationRepo.save(list);
+  }
+
+  async remove(id: string): Promise<void> {
+    const item = await this.findOne(id);
+    await this.participationRepo.remove(item);
+  }
 }

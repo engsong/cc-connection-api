@@ -10,6 +10,7 @@ import {
   NotFoundException,
   HttpCode,
   HttpStatus,
+  ParseUUIDPipe,
 } from '@nestjs/common';
 import { ClassesService } from './classes.service';
 import { CreateClassDto } from './dto/create-class.dto';
@@ -63,4 +64,13 @@ export class ClassesController {
     const deleted = await this.service.softDelete(id);
     if (!deleted) throw new NotFoundException(`Class with ID ${id} not found`);
   }
+
+  @Post('by-class-id')
+async getByClassIdWithDetails(@Param('classId', ParseUUIDPipe) classId: string) {
+  const cls = await this.service.findOneWithRelations(classId);
+  if (!cls) {
+    throw new NotFoundException(`Class with ID ${classId} not found`);
+  }
+  return cls;
+}
 }

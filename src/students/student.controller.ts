@@ -14,6 +14,7 @@ import { diskStorage } from 'multer';
 import type { Multer } from 'multer';
 import { extname } from 'path';
 import { StudentService } from './student.service';
+import { SearchStudentsDto } from './dto/search-students.dto';
 
 @Controller('students')
 export class StudentController {
@@ -100,4 +101,8 @@ export class StudentController {
   deleteStudent(@Param('id') id: string) {
     return this.service.deleteStudent(id);
   }
+  @Post('search')
+async search(@Body() dto: SearchStudentsDto) {
+  return this.service.searchByClass(dto);
+}
 }

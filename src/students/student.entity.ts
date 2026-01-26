@@ -8,6 +8,7 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   OneToMany,
+  JoinColumn,
 } from 'typeorm';
 import { Branch } from '../branch/branch.entity';
 import { AcademicYear } from '../academic_years/academic.entity';
@@ -17,6 +18,7 @@ import { Parent } from '../parents/parent.entity';
 import { Saving } from '../savings/savings.entity';
 import { Task } from '../task/task.entity';
 import { ParticipationScore } from '../participantion_score/participation-score.entity';
+import { Class } from '../classes/class.entity';
 
 @Entity('students')
 export class Student {
@@ -31,6 +33,10 @@ export class Student {
 
   @Column({ type: 'varchar', length: 100 })
   student_id: string;
+
+@ManyToOne(() => Class, { nullable: true })
+@JoinColumn({ name: 'class_id' })   // ← add this line
+classId: Class;
 
   @ManyToOne(() => Province, { nullable: true })
   province: Province;

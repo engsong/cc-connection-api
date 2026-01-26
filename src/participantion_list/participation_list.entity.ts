@@ -1,24 +1,47 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, OneToMany } from 'typeorm';
-import { ParticipationScore } from '../participantion_score/participation-score.entity';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  CreateDateColumn,
+  UpdateDateColumn,
+  ManyToMany,
+  JoinTable,
+} from 'typeorm';
+import { Class } from '../classes/class.entity';
 
 @Entity('participation_list')
 export class ParticipationList {
-  @PrimaryGeneratedColumn('uuid') // ใช้ uuid
+  @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({nullable: true})
+  @Column({ nullable: true, length: 150 })
   name: string;
 
-  @Column({nullable: true})
-  score: string;
+  @Column({ nullable: true, type: 'varchar', length: 50 })
+  score: string; // e.g. "10", "A+", "8.5/10" – or change to decimal later
 
-   @Column({ nullable: true })
+  @ManyToMany(() => Class, (classEntity) => classEntity.participationLists, {
+    cascade: true, // auto-save when saving list
+  })
+  @JoinTable({
+    name: 'participation_list_classes',
+    joinColumn: {
+      name: 'participation_list_id',
+      referencedColumnName: 'id',
+    },
+    inverseJoinColumn: {
+      name: 'class_id',
+      referencedColumnName: 'id',
+    },
+  })
+  classes: Class[];
+
+  @Column({ type: 'text', nullable: true })
   description: string;
 
-  @CreateDateColumn({ type: 'timestamp' })
+  @CreateDateColumn()
   created_at: Date;
 
-  @UpdateDateColumn({ type: 'timestamp' })
+  @UpdateDateColumn()
   updated_at: Date;
-
 }

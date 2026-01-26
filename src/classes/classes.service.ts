@@ -101,4 +101,17 @@ export class ClassesService {
     await this.repo.save(cls);
     return true;
   }
+
+  async findOneWithRelations(id: string) {
+  const cls = await this.repo.findOne({
+    where: { id },
+    relations: ['students', 'participationLists', 'branch', 'academicYear', 'yearLevel'],
+  });
+
+  if (!cls) {
+    throw new NotFoundException(`Class with ID ${id} not found`);
+  }
+
+  return cls;
+}
 }

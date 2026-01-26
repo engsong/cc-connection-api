@@ -36,6 +36,7 @@ import { LevelsModule } from './levels/levels.module';
 import { TeachingModule } from './teaching/teaching.module';
 import { AppointmentPersonModule } from './appointment-person/appointment-person.module';
 import { ParticipationListModule } from './participantion_list/participation_list.module';
+import { ClassesModule } from './classes/classes.module';
 
 @Module({
   imports: [
@@ -92,6 +93,7 @@ import { ParticipationListModule } from './participantion_list/participation_lis
     LevelsModule,
     TeachingModule,
     AppointmentPersonModule,
+    ClassesModule,
   ],
   controllers: [HealthController],
 })

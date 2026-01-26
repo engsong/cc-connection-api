@@ -1,35 +1,55 @@
-import { Controller, Get, Post, Put, Delete, Param, Body } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Put,
+  Delete,
+  Param,
+  Body,
+  HttpCode,
+  HttpStatus,
+  ParseUUIDPipe,
+} from '@nestjs/common';
 import { ParticipationListService } from './participation_list.service';
 import { CreateParticipationListDto } from './dto/create-participation-list.dto';
 import { UpdateParticipationListDto } from './dto/update-participation-list.dto';
 
 @Controller('participation-list')
 export class ParticipationListController {
-  constructor(private readonly participationService: ParticipationListService) {}
+  constructor(private readonly service: ParticipationListService) {}
 
   @Post()
+  @HttpCode(HttpStatus.CREATED)
   create(@Body() dto: CreateParticipationListDto) {
-    return this.participationService.createParticipationList(dto);
+    return this.service.create(dto);
   }
 
   @Get()
   findAll() {
-    return this.participationService.getAllParticipationList();
+    return this.service.findAll();
   }
 
-@Get(':id')
-findOne(@Param('id') id: string) {  // <-- แก้เป็น string
-  return this.participationService.getParticipationListById(id);
-}
+  @Get('class/:classId')
+  findByClass(@Param('classId', ParseUUIDPipe) classId: string) {
+    return this.service.findByClassId(classId);
+  }
 
-@Put(':id')
-update(@Param('id') id: string, @Body() dto: UpdateParticipationListDto) {  // <-- string
-  return this.participationService.updateParticipationList(id, dto);
-}
+  @Get(':id')
+  findOne(@Param('id', ParseUUIDPipe) id: string) {
+    return this.service.findOne(id);
+  }
 
-@Delete(':id')
-remove(@Param('id') id: string) {  // <-- string
-  return this.participationService.deleteParticipationList(id);
-}
+  @Put(':id')
+  update(
+    @Param('id', ParseUUIDPipe) id: string,
+    @Body() dto: UpdateParticipationListDto,
+  ) {
+    return this.service.update(id, dto);
+  }
 
+  @Delete(':id')
+  @HttpCode(HttpStatus.NO_CONTENT)
+  remove(@Param('id', ParseUUIDPipe) id: string) {
+    return this.service.remove(id);
+  }
 }
