@@ -34,9 +34,9 @@ export class Student {
   @Column({ type: 'varchar', length: 100 })
   student_id: string;
 
-@ManyToOne(() => Class, { nullable: true })
-@JoinColumn({ name: 'class_id' })   // ← add this line
-classId: Class;
+  @ManyToOne(() => Class, { nullable: true })
+  @JoinColumn({ name: 'class_id' }) // ← add this line
+  classId: Class;
 
   @ManyToOne(() => Province, { nullable: true })
   province: Province;

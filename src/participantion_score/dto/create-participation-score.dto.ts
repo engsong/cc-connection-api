@@ -1,12 +1,18 @@
-export class CreateParticipationScoreDto {
-  branchId: string;
-  academicYearId: number;
-  addedBy: string;
-  scores: ParticipationScoreItemDto[];
+export interface ParticipationScoreItemDto {
+  id: string;             // optional, frontend tracking ID
+  participationId: string; // the ID of the participation/activity
+  studentId: string;       // the student ID
+  name: string;           // activity/participation name
+  score: number;
+  date?: string;          // optional
+  addedBy?: string;       // optional
 }
 
-export class ParticipationScoreItemDto {
-  id: string; // จาก participant list
-  name: string;
-  score: number;
+export class CreateParticipationScoreDto {
+  branchId: string;
+  academicYearId: string;
+  classId: string;
+  addedBy: string;
+  date?: string;
+  scores: ParticipationScoreItemDto[];
 }

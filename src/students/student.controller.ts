@@ -14,7 +14,7 @@ import { diskStorage } from 'multer';
 import type { Multer } from 'multer';
 import { extname } from 'path';
 import { StudentService } from './student.service';
-import { SearchStudentsDto } from './dto/search-students.dto';
+import { SearchStudentByClassDto } from './dto/search-students.dto';
 
 @Controller('students')
 export class StudentController {
@@ -34,7 +34,10 @@ export class StudentController {
       }),
     }),
   )
-  async createStudent(@UploadedFile() file: Express.Multer.File, @Body() body: any) {
+  async createStudent(
+    @UploadedFile() file: Express.Multer.File,
+    @Body() body: any,
+  ) {
     const data: any = {
       ...body,
       emergency_contacts: body.emergency_contacts
@@ -101,8 +104,11 @@ export class StudentController {
   deleteStudent(@Param('id') id: string) {
     return this.service.deleteStudent(id);
   }
-  @Post('search')
-async search(@Body() dto: SearchStudentsDto) {
-  return this.service.searchByClass(dto);
+ @Post('by-class')
+async getStudentsByClass(
+  @Body() dto: SearchStudentByClassDto,
+) {
+  return this.service.getStudentsByClass(dto);
 }
+
 }

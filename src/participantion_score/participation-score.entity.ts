@@ -8,23 +8,31 @@ import {
 
 @Entity('participation_scores')
 export class ParticipationScore {
-  @PrimaryGeneratedColumn()
-  id: number;
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
-  @Column()
-  studentId: number;
+  @Column({ type: 'uuid', nullable: true })
+  branchId: string;
 
-  @Column()
-  branchId: number;
+  @Column({ type: 'uuid', nullable: true })
+  academicYearId: string;
 
-  @Column()
-  academicYearId: number;
+  @Column({ type: 'varchar', nullable: true })
+  classId: string;
 
-  @Column('jsonb') // store array of participant scores
-  scores: { participationId: string; participationName: string; score: number }[];
+  @Column({ type: 'jsonb' })
+  scores: {
+    studentId: string;
+    participationId: string;
+    participationName: string;
+    score: number;
+  }[];
 
-  @Column()
-  addedBy: string; // admin id
+  @Column({ type: 'varchar' })
+  addedBy: string;
+
+  @Column({ type: 'date', nullable: true })
+  date: Date | null;
 
   @CreateDateColumn()
   created_at: Date;

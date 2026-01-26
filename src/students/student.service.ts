@@ -7,7 +7,7 @@ import { Branch } from '../branch/branch.entity';
 import { AcademicYear } from '../academic_years/academic.entity';
 import { Province } from '../location/province.entity';
 import { District } from '../location/district.entity';
-import { SearchStudentsDto } from './dto/search-students.dto';
+import { SearchStudentByClassDto } from './dto/search-students.dto';
 
 @Injectable()
 export class StudentService {
@@ -162,59 +162,56 @@ export class StudentService {
     return this.studentRepo.remove(student);
   }
 
-  async searchByClass(dto: SearchStudentsDto) {
-    const query = this.studentRepo.createQueryBuilder('student')
-      .leftJoinAndSelect('student.classId', 'class')
-      .leftJoinAndSelect('student.branch', 'branch')
-      .leftJoinAndSelect('student.academicYear', 'academicYear')
-      .where('student.is_deleted = :isDeleted', { isDeleted: false });
+  async getStudentsByClass(dto: SearchStudentByClassDto) {
+    try {
+      const query = this.studentRepo
+        .createQueryBuilder('student')
+        .innerJoinAndSelect('student.classId', 'class') // ✅ FIXED
+        .leftJoinAndSelect('student.branch', 'branch')
+        .leftJoinAndSelect('student.academicYear', 'academicYear')
+        .where('student.is_deleted = false');
 
-    // Filter by class ID(s)
-    if (dto.classIds?.length) {
-      query.andWhere('student.class_id IN (:...classIds)', { classIds: dto.classIds });
-    }
-
-    // Search by text (name or student_id)
-    if (dto.searchText) {
-      const search = `%${dto.searchText.trim()}%`;
-      query.andWhere(
-        '(student.first_name ILIKE :search OR student.last_name ILIKE :search OR student.student_id ILIKE :search)',
-        { search },
-      );
-    }
-
-    // Filter active/inactive
-    if (dto.isActive !== undefined) {
-      query.andWhere('student.is_active = :isActive', { isActive: dto.isActive });
-    }
-
-    // Sorting
-    if (dto.sortBy) {
-      const order = dto.sortOrder === 'DESC' ? 'DESC' : 'ASC';
-      if (dto.sortBy === 'name') {
-        query.orderBy('student.first_name', order).addOrderBy('student.last_name', order);
-      } else if (dto.sortBy === 'student_id') {
-        query.orderBy('student.student_id', order);
-      } else if (dto.sortBy === 'created_at') {
-        query.orderBy('student.created_at', order);
+      // 🔹 filter by class
+      if (dto.classIds?.length) {
+        query.andWhere('class.id IN (:...classIds)', {
+          classIds: dto.classIds,
+        });
       }
-    } else {
-      query.orderBy('student.created_at', 'DESC');
+
+      // 🔹 filter by branch
+      if (dto.branchId) {
+        query.andWhere('branch.id = :branchId', {
+          branchId: dto.branchId,
+        });
+      }
+
+      // 🔹 filter by academic year
+      if (dto.academicYearId) {
+        query.andWhere('academicYear.id = :academicYearId', {
+          academicYearId: dto.academicYearId,
+        });
+      }
+
+      // 🔹 filter active
+      if (dto.isActive !== undefined) {
+        query.andWhere('student.is_active = :isActive', {
+          isActive: dto.isActive,
+        });
+      }
+
+      query.orderBy('student.first_name', 'ASC');
+
+      console.log(query.getSql()); // 🧪 debug (remove later)
+
+      const students = await query.getMany();
+
+      return {
+        data: students,
+        total: students.length,
+      };
+    } catch (err) {
+      console.error('getStudentsByClass ERROR:', err);
+      throw err;
     }
-
-    // Pagination
-    const page = dto.page || 1;
-    const limit = dto.limit || 20;
-    query.skip((page - 1) * limit).take(limit);
-
-    const [students, total] = await query.getManyAndCount();
-
-    return {
-      data: students,
-      total,
-      page,
-      limit,
-      totalPages: Math.ceil(total / limit),
-    };
   }
 }
