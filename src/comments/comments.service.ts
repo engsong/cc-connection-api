@@ -90,7 +90,30 @@ export class CommentsService {
     query.andWhere('comment.module_id = :module_id', { module_id });
   }
 
-  return query.getMany();
+  query.orderBy('comment.created_at', 'ASC');
+
+  const comments = await query.getMany();
+
+  // Fetch auditor info for each comment
+  const enrichedComments = await Promise.all(
+    comments.map(async (comment) => {
+      let auditor: any = null;
+      if (comment.auditor_type === AuditorType.ADMIN) {
+        auditor = await this.adminRepo.findOne({ 
+          where: { id: comment.auditor_id },
+          select: ['id', 'username', 'first_name', 'last_name', 'profile_pic']
+        });
+      } else if (comment.auditor_type === AuditorType.PARENT) {
+        auditor = await this.parentRepo.findOne({ 
+          where: { id: comment.auditor_id },
+          select: ['id', 'first_name', 'last_name', 'profile_pic']
+        });
+      }
+      return { ...comment, auditor };
+    })
+  );
+
+  return enrichedComments;
 }
 
   async findOne(id: string) {
