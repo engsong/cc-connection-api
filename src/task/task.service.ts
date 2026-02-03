@@ -56,7 +56,7 @@ export class TaskService {
 
   async findAll(): Promise<Task[]> {
     return this.taskRepo.find({
-      relations: ['student', 'files'],
+      relations: ['student', 'student.academicYear', 'student.classId', 'student.branch', 'files'],
       order: { created_at: 'DESC' },
     });
   }
@@ -64,7 +64,7 @@ export class TaskService {
   async findOne(id: string): Promise<Task> {
     const task = await this.taskRepo.findOne({
       where: { id },
-      relations: ['student', 'files'],
+      relations: ['student', 'student.academicYear', 'student.classId', 'student.branch', 'files'],
     });
 
     if (!task) {

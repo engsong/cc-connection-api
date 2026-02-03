@@ -53,7 +53,10 @@ export class File {
   @JoinColumn({ name: 'event_activity_id' })
   eventActivity?: EventActivity;
 
-  @ManyToOne(() => Task, (task) => task.files, { nullable: true })
+  @ManyToOne(() => Task, (task) => task.files, {
+    nullable: true,
+    onDelete: 'SET NULL'
+  })
   @JoinColumn({ name: 'task_id' })
   task?: Task;
 }

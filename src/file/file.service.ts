@@ -39,7 +39,10 @@ export class FileService {
       task: 'task_id',
     } as const;
 
-    const where: any = { [columnMap[module]]: ownerId };
+    const where: any = { 
+      [columnMap[module]]: ownerId,
+      is_deleted: false,
+    };
     return this.fileRepo.find({ where });
   }
 
