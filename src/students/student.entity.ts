@@ -19,6 +19,7 @@ import { Saving } from '../savings/savings.entity';
 import { Task } from '../task/task.entity';
 import { ParticipationScore } from '../participantion_score/participation-score.entity';
 import { Class } from '../classes/class.entity';
+import { Attendance } from '../attendance/attendance.entity';
 
 @Entity('students')
 export class Student {
@@ -110,4 +111,7 @@ export class Student {
 
   @OneToMany(() => Task, (task) => task.student)
   tasks: Task[];
+
+  @OneToMany(() => Attendance, (attendance) => attendance.student)
+  attendances: Attendance[];
 }

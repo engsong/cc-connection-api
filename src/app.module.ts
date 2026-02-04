@@ -37,6 +37,7 @@ import { TeachingModule } from './teaching/teaching.module';
 import { AppointmentPersonModule } from './appointment-person/appointment-person.module';
 import { ParticipationListModule } from './participantion_list/participation_list.module';
 import { ClassesModule } from './classes/classes.module';
+import { AttendanceModule } from './attendance/attendance.module';
 
 @Module({
   imports: [
@@ -94,6 +95,7 @@ import { ClassesModule } from './classes/classes.module';
     TeachingModule,
     AppointmentPersonModule,
     ClassesModule,
+    AttendanceModule,
   ],
   controllers: [HealthController],
 })
