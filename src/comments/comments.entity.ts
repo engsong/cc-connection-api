@@ -14,6 +14,7 @@ export enum AuditorType {
 export enum ModuleType {
   TASK = 'TASK',
   EVENT = 'EVENT',
+  EVENT_ACTIVITY = 'EVENT_ACTIVITY',
 }
 
 @Entity('comments')

@@ -7,6 +7,7 @@ import { Comment, AuditorType, ModuleType } from './comments.entity';
 import { Admin } from '../admin/admin.entity';
 import { Parent } from '../parents/parent.entity';
 import { Task } from '../task/task.entity';
+import { EventActivity } from '../eventactivity/eventActivity.entity';
 
 @Injectable()
 export class CommentsService {
@@ -25,6 +26,9 @@ export class CommentsService {
 
     @InjectRepository(Event)
     private eventRepo: Repository<Event>,
+
+    @InjectRepository(EventActivity)
+    private eventActivityRepo: Repository<EventActivity>,
   ) {}
 
   // Create comment
@@ -40,11 +44,14 @@ export class CommentsService {
 
     // ตรวจสอบ module
     if (dto.module_type === ModuleType.TASK) {
-      const task = await this.taskRepo.findOne({ where: { id: dto.module_id } as any }); // cast เป็น any เพื่อ TypeScript ผ่าน
+      const task = await this.taskRepo.findOne({ where: { id: dto.module_id } as any });
       if (!task) throw new NotFoundException('Task not found');
     } else if (dto.module_type === ModuleType.EVENT) {
-      const event = await this.eventRepo.findOne({ where: { id: dto.module_id } as any }); // cast เป็น any
+      const event = await this.eventRepo.findOne({ where: { id: dto.module_id } as any });
       if (!event) throw new NotFoundException('Event not found');
+    } else if (dto.module_type === ModuleType.EVENT_ACTIVITY) {
+      const activity = await this.eventActivityRepo.findOne({ where: { id: dto.module_id } as any });
+      if (!activity) throw new NotFoundException('Event Activity not found');
     }
 
     // สร้าง comment
@@ -83,7 +90,30 @@ export class CommentsService {
     query.andWhere('comment.module_id = :module_id', { module_id });
   }
 
-  return query.getMany();
+  query.orderBy('comment.created_at', 'ASC');
+
+  const comments = await query.getMany();
+
+  // Fetch auditor info for each comment
+  const enrichedComments = await Promise.all(
+    comments.map(async (comment) => {
+      let auditor: any = null;
+      if (comment.auditor_type === AuditorType.ADMIN) {
+        auditor = await this.adminRepo.findOne({ 
+          where: { id: comment.auditor_id },
+          select: ['id', 'username', 'first_name', 'last_name', 'profile_pic']
+        });
+      } else if (comment.auditor_type === AuditorType.PARENT) {
+        auditor = await this.parentRepo.findOne({ 
+          where: { id: comment.auditor_id },
+          select: ['id', 'first_name', 'last_name', 'profile_pic']
+        });
+      }
+      return { ...comment, auditor };
+    })
+  );
+
+  return enrichedComments;
 }
 
   async findOne(id: string) {
